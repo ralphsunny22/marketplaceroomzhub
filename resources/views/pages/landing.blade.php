@@ -11,7 +11,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="main-slider-content">
-                        <h1 class="title">Welcomee to RoomzHub MarketPlacee.</h1>
+                        <h1 class="title">Welcomeex to RoomzHub MarketPlacee.</h1>
                         <div class="shop-btn">
                             <a href="shop.html" class="axil-btn btn-bg-primary"><i class="far fa-shopping-cart"></i> Check
                                 it Out!</a>
