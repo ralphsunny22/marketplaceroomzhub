@@ -47,7 +47,8 @@ jobs:
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          server: 92.205.6.6
-          username: marketplace@marketplace.roomzhub.com
+          server: https://marketplace.roomzhub.com
+          username: mktplace@marketplace.roomzhub.com
           password: OQ!cF57Qzg1e249011
           server-dir: /
+          git-ftp-args: "--insecure"
