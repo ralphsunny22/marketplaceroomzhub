@@ -35,7 +35,7 @@ Route::get('/shop', [LandingController::class, 'generalShop'])->name('generalSho
 Route::get('/product/{id}', [ProductController::class, 'singleProduct'])->name('singleProduct');
 
 //vendor
-Route::group(['prefix' => 'vendor'], function () {
+Route::group(['prefix' => 'vendors'], function () {
     Route::get('/', [VendorController::class, 'dashboard'])->name('vendorDashboard');
     Route::get('/all-product', [VendorController::class, 'allProduct'])->name('allProduct');
     Route::get('/add-product', [VendorController::class, 'addProduct'])->name('addProduct');

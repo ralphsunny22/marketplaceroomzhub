@@ -66,7 +66,7 @@
                                 <a href="{{ route('generalShop') }}"><i class="far fa-bags-shopping"></i> Shop</a>
                             </li>
                             <li>
-                                <a href="shop-sidebar.html"><i class="far fa-badge-percent"></i>Become a vendor</a>
+                                <a href="{{ route('vendorDashboard') }}"><i class="far fa-badge-percent"></i>Become a vendor</a>
                             </li>
                             <li>
                                 <a href="contact.html"><i class="far fa-headset"></i>Support</a>
