@@ -26,8 +26,8 @@
                                         <!-- Loop for Featured and Alternates -->
                                         <!-- Featured Image First -->
                                         <div class="thumbnail">
-                                            <a href="{{ Storage::url('products/' . $product->featured_image) }}" class="popup-zoom">
-                                                <img src="{{ Storage::url('products/' . $product->featured_image) }}" alt="Product Image">
+                                            <a href="{{ $product->featured_image }}" class="popup-zoom">
+                                                <img src="{{ $product->featured_image }}" alt="Product Image">
                                             </a>
                                         </div>
 
@@ -35,8 +35,8 @@
                                             <!-- Loop through Alternates -->
                                             @foreach(json_decode($product->alternate_images) as $alternate)
                                             <div class="thumbnail">
-                                                <a href="{{ Storage::url('products/' . $alternate) }}" class="popup-zoom">
-                                                    <img src="{{ Storage::url('products/' . $alternate) }}" alt="Product Image">
+                                                <a href="{{ $alternate }}" class="popup-zoom">
+                                                    <img src="{{ $alternate }}" alt="Product Image">
                                                 </a>
                                             </div>
                                             @endforeach
@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="product-quick-view position-view">
                                         {{-- <a href="{{ asset('storage/' . $product->featured_image) }}" class="popup-zoom"> --}}
-                                        <a href="{{ Storage::url('products/' . $product->featured_image) }}" class="popup-zoom">
+                                        <a href="{{ $product->featured_image }}" class="popup-zoom">
                                             <i class="far fa-search-plus"></i>
                                         </a>
                                     </div>

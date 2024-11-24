@@ -60,7 +60,7 @@
                         <ul class="axil-breadcrumb">
                             <li class="axil-breadcrumb-item"><a href="/">Home</a></li>
                             <li class="separator"></li>
-                            <li class="axil-breadcrumb-item" aria-current="page"><a href="{{ route('allProduct') }}">All Products</a></li>
+                            <li class="axil-breadcrumb-item" aria-current="page"><a href="{{ route('vendorAllProduct') }}">All Products</a></li>
                             <li class="separator"></li>
                             <li class="axil-breadcrumb-item active" aria-current="page">Add Product</li>
                         </ul>
@@ -174,7 +174,7 @@
                                         </div>
                                     @endif
                                     @if ($product->featured_image)
-                                        <img src="{{ Storage::url('products/' . $product->featured_image) }}" alt="Product Image" width="100">
+                                        <img src="{{ $product->featured_image }}" alt="Product Image" width="100">
                                     @endif
                                 </div>
                             </div>
@@ -193,7 +193,7 @@
                                         <div class="d-flex flex-wrap">
                                         @foreach (json_decode($product->alternate_images, true) as $index => $image)
                                             <div class="image-wrapper me-2" data-index="{{ $index }}">
-                                                <img src="{{ \Storage::url('products/' . $image) }}" alt="Alternate Image" width="100">
+                                                <img src="{{ $image }}" alt="Alternate Image" width="100">
                                                 <button type="button" class="btn btn-danger remove-image" data-index="{{ $index }}">
                                                     &times;
                                                 </button>

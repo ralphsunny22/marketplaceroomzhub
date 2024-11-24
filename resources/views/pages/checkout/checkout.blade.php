@@ -22,6 +22,7 @@
 
                         {{-- axil-checkout-notice --}}
                         <div class="axil-checkout-notice">
+                            @if (Auth::guest())
                             <div class="axil-toggle-box">
                                 <div class="toggle-bar"><i class="fas fa-user"></i> Returning customer? <a href="javascript:void(0)" class="toggle-btn">Click here to login <i class="fas fa-angle-down"></i></a>
                                 </div>
@@ -42,6 +43,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             <div class="axil-toggle-box">
                                 <div class="toggle-bar"><i class="fas fa-pencil"></i> Have a coupon? <a href="javascript:void(0)" class="toggle-btn">Click here to enter your code <i class="fas fa-angle-down"></i></a>
                                 </div>
@@ -61,7 +63,7 @@
 
                         <div class="axil-checkout-billing">
                             <h4 class="title mb--40">Billing details</h4>
-                            <div class="row">
+                            <div class="row d-none">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>First Name <span>*</span></label>

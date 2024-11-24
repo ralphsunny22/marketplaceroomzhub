@@ -10,9 +10,9 @@ class CheckoutController extends Controller
 {
     public function checkout()
     {
-        // $userId = auth()->id();
-        $userId = 1;
-        $cart = Cart::where('created_by', $userId)->first();
+        $user = auth()->user();
+        // $userId = 1;
+        $cart = Cart::where('created_by', $user->id)->first();
 
         if (!$cart) {
             // abort('404');
@@ -29,7 +29,7 @@ class CheckoutController extends Controller
         foreach ($cartItems as $item) {
             $total += $item['price'] * $item['quantity'];
         }
-        return view('pages.checkout.checkout', compact('cart', 'cartItems', 'total'));
+        return view('pages.checkout.checkout', compact('cart', 'user', 'cartItems', 'total'));
     }
     // public function store(Request $request)
     // {

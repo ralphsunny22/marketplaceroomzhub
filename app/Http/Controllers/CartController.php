@@ -13,7 +13,7 @@ class CartController extends Controller
     {
         $product = Product::findOrFail($id); // Assuming you have a Product model
         // $userId = auth()->id(); // Get logged-in user's ID if applicable
-        $userId = 1; // Get logged-in user's ID if applicable
+        $userId = auth()->id(); // Get logged-in user's ID if applicable
 
         // Find cart in database, or create a new one if it doesn't exist
         $cart = Cart::firstOrCreate(
@@ -56,7 +56,7 @@ class CartController extends Controller
     {
         $product = Product::findOrFail($id); // Assuming you have a Product model
         // $userId = auth()->id(); // Get logged-in user's ID if applicable
-        $userId = 1; // Get logged-in user's ID if applicable
+        $userId = auth()->id();
 
         // Find cart in database, or create a new one if it doesn't exist
         $cart = Cart::firstOrCreate(
@@ -95,8 +95,8 @@ class CartController extends Controller
 
     // Remove from Cart
     public function removeFromCart($id){
-        // $userId = auth()->id();
-        $userId = 1;
+        $userId = auth()->id();
+        // $userId = 1;
         $cart = Cart::where('created_by', $userId)->first();
 
         if ($cart) {
@@ -121,8 +121,8 @@ class CartController extends Controller
     // View Cart
     public function viewCart()
     {
-        // $userId = auth()->id();
-        $userId = 1;
+        $userId = auth()->id();
+        // $userId = 1;
         $cart = Cart::where('created_by', $userId)->first();
 
         // Use the session as fallback if user is not logged in
@@ -167,8 +167,8 @@ class CartController extends Controller
     // Clear Cart after Checkout
     public function clearCart()
     {
-        // $userId = auth()->id();
-        $userId = 1;
+        $userId = auth()->id();
+        // $userId = 1;
 
         // Clear from session and database
         session()->forget('cart');

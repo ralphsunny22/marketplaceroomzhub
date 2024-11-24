@@ -54,7 +54,7 @@
                                 @foreach ($cartItems as $productId => $details)
                                     <tr>
                                         <td class="product-remove"><a href="{{ route('removeFromCart', $productId) }}" class="remove-wishlist"><i class="fal fa-times"></i></a></td>
-                                        <td class="product-thumbnail"><a href="{{ route('singleProduct', $productId) }}"><img src="{{ Storage::url('products/' . $details['featured_image']) }}" alt="Digital Product"></a></td>
+                                        <td class="product-thumbnail"><a href="{{ route('singleProduct', $productId) }}"><img src="{{ $details['featured_image'] }}" alt="Digital Product"></a></td>
                                         <td class="product-title"><a href="single-product.html">{{ $details['name'] }}</a></td>
                                         <td class="product-price" data-title="Price" data-price="{{$details['price']}}"><span class="currency-symbol">$</span>{{ $details['price'] }}</td>
 

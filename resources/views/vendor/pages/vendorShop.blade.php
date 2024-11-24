@@ -1,7 +1,23 @@
 @extends('layout.design')
 @section('title')Annie Shop :: Marketplace @endsection
 
-@section('extra_css')@endsection
+@section('extra_css')
+
+<style>
+    .category-select .single-select {
+    color: var(--color-dark);
+    width: auto;
+    margin: 10px;
+    padding-right: 43px;
+    background: url('') 85% center no-repeat rgba(0, 0, 0, 0);
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: var(--font-size-b1);
+    border: 2px solid var(--color-light);
+}
+</style>
+
+@endsection
 
 @section('content')
 
@@ -24,11 +40,11 @@
                 <div class="col-lg-6 col-md-8">
                     <div class="inner">
                         <ul class="axil-breadcrumb">
-                            <li class="axil-breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="axil-breadcrumb-item"><a href="/">Home</a></li>
                             <li class="separator"></li>
                             <li class="axil-breadcrumb-item active" aria-current="page">My Account</li>
                         </ul>
-                        <h1 class="title">Explore Annie's Products</h1>
+                        <h1 class="title">Explore {{ $owner->name."'s" }} Products</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-4">
@@ -49,7 +65,7 @@
                 <div class="col-lg-12">
                     <div class="axil-shop-top">
                         <div class="row">
-                            <div class="col-lg-9">
+                            <div class="col-lg-9 d-none">
                                 <div class="category-select">
 
                                     <!-- Start Single Select  -->
@@ -84,15 +100,10 @@
 
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-12">
                                 <div class="category-select mt_md--10 mt_sm--10 justify-content-lg-end">
                                     <!-- Start Single Select  -->
-                                    <select class="single-select">
-                                        <option>Sort by Latest</option>
-                                        <option>Sort by Name</option>
-                                        <option>Sort by Price</option>
-                                        <option>Sort by Viewed</option>
-                                    </select>
+                                    <input type="text" class="form-control single-select" placeholder="Search anything">
                                     <!-- End Single Select  -->
                                 </div>
                             </div>
@@ -109,8 +120,8 @@
                 <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="axil-product product-style-one has-color-pick mt--40">
                         <div class="thumbnail">
-                            <a href="single-product.html">
-                                <img src="{{ Storage::url('products/' . $item->featured_image) }}" alt="Product Images">
+                            <a href="{{ route('singleProduct', $item->id) }}">
+                                <img src="{{ $item->featured_image }}" alt="Product Images">
                             </a>
                             <div class="label-block label-right d-none">
                                 <div class="product-badget">20% OFF</div>

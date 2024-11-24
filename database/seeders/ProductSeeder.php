@@ -18,7 +18,7 @@ class ProductSeeder extends Seeder
 
         $product = new Product();
         $product->name = 'Product 1';
-        $product->created_by = 1;
+        $product->created_by = 2;
         $product->slug = Str::slug('Product 1');
         $product->uuid = (string) Str::uuid();
         $product->category_id = 1;
@@ -33,7 +33,7 @@ class ProductSeeder extends Seeder
 
         $product = new Product();
         $product->name = 'Product 2';
-        $product->created_by = 1;
+        $product->created_by = 2;
         $product->slug = Str::slug('Product 2');
         $product->uuid = (string) Str::uuid();
         $product->category_id = 1;
@@ -48,7 +48,7 @@ class ProductSeeder extends Seeder
 
         $product = new Product();
         $product->name = 'Product 3';
-        $product->created_by = 1;
+        $product->created_by = 2;
         $product->slug = Str::slug('Product 3');
         $product->uuid = (string) Str::uuid();
         $product->category_id = 1;
@@ -63,7 +63,7 @@ class ProductSeeder extends Seeder
 
         $product = new Product();
         $product->name = 'Product 4';
-        $product->created_by = 1;
+        $product->created_by = 2;
         $product->slug = Str::slug('Product 4');
         $product->uuid = (string) Str::uuid();
         $product->category_id = 1;
@@ -78,7 +78,7 @@ class ProductSeeder extends Seeder
 
         $product = new Product();
         $product->name = 'Product 5';
-        $product->created_by = 1;
+        $product->created_by = 2;
         $product->slug = Str::slug('Product 5');
         $product->uuid = (string) Str::uuid();
         $product->category_id = 1;
@@ -93,7 +93,7 @@ class ProductSeeder extends Seeder
 
         $product = new Product();
         $product->name = 'Product 6';
-        $product->created_by = 1;
+        $product->created_by = 2;
         $product->slug = Str::slug('Product 6');
         $product->uuid = (string) Str::uuid();
         $product->category_id = 1;
@@ -108,7 +108,7 @@ class ProductSeeder extends Seeder
 
         $product = new Product();
         $product->name = 'Product 7';
-        $product->created_by = 1;
+        $product->created_by = 2;
         $product->slug = Str::slug('Product 5');
         $product->uuid = (string) Str::uuid();
         $product->category_id = 1;
@@ -123,7 +123,7 @@ class ProductSeeder extends Seeder
 
         $product = new Product();
         $product->name = 'Product 8';
-        $product->created_by = 1;
+        $product->created_by = 2;
         $product->slug = Str::slug('Product 6');
         $product->uuid = (string) Str::uuid();
         $product->category_id = 1;

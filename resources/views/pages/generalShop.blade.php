@@ -45,7 +45,7 @@
     <!-- Start Shop Area  -->
     <div class="axil-shop-area axil-section-gap bg-color-white">
         <div class="container">
-            <div class="row">
+            <div class="row d-none">
                 <div class="col-lg-12">
                     <div class="axil-shop-top">
                         <div class="row">
@@ -110,7 +110,7 @@
                     <div class="axil-product product-style-one has-color-pick mt--40">
                         <div class="thumbnail">
                             <a href="single-product.html">
-                                <img src="{{ Storage::url('products/' . $item->featured_image) }}" alt="Product Images">
+                                <img src="{{ $item->featured_image }}" alt="Product Images">
                             </a>
                             <div class="label-block label-right d-none">
                                 <div class="product-badget">20% OFF</div>
@@ -167,7 +167,7 @@
     </div>
     <!-- End Shop Area  -->
     <!-- Start Axil Newsletter Area  -->
-    <div class="axil-newsletter-area axil-section-gap pt--0">
+    <div class="axil-newsletter-area axil-section-gap pt--0 d-none">
         <div class="container">
             <div class="etrade-newsletter-wrapper bg_image bg_image--5">
                 <div class="newsletter-content">

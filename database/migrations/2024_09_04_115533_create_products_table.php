@@ -30,7 +30,7 @@ return new class extends Migration
             // $table->json('colors')->nullable();
 
 
-            $table->string('status')->default('inactive');
+            $table->string('status')->default('pending'); //featured
 
             $table->timestamps();
         });

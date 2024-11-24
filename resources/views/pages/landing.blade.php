@@ -11,7 +11,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="main-slider-content">
-                        <h1 class="title">Welcomeex to RoomzHub MarketPlacee.</h1>
+                        <h1 class="title">Welcome to RoomzHub MarketPlace.</h1>
                         <div class="shop-btn">
                             <a href="shop.html" class="axil-btn btn-bg-primary"><i class="far fa-shopping-cart"></i> Check
                                 it Out!</a>
@@ -365,8 +365,8 @@
                 <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
                     <div class="axil-product product-style-one has-color-pick mt--40">
                         <div class="thumbnail">
-                            <a href="single-product.html">
-                                <img src="{{ Storage::url('products/' . $item->featured_image) }}" alt="Product Images">
+                            <a href="javascript:void(0);">
+                                <img src="{{ $item->featured_image }}" alt="Product Images">
                             </a>
                             <div class="label-block label-right d-none">
                                 <div class="product-badget">20% OFF</div>
@@ -585,7 +585,7 @@
                     <div class="axil-product product-style-eight">
                         <div class="thumbnail">
                             <a href="{{ route('singleProduct', $item->id) }}">
-                                <img data-sal="zoom-out" data-sal-delay="100" data-sal-duration="800" loading="lazy" class="main-img" src="{{ Storage::url('products/' . $item->featured_image) }}" alt="Product Images">
+                                <img data-sal="zoom-out" data-sal-delay="100" data-sal-duration="800" loading="lazy" class="main-img" src="{{ $item->featured_image }}" alt="Product Images">
                             </a>
                             <div class="label-block label-left">
                                 <div class="product-badget sale">Sale</div>

@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('created_by')->nullable(); // Assuming users can be guests
             $table->json('products')->nullable();
+            $table->unsignedBigInteger('vendor_id')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('billing_country')->nullable();
@@ -37,7 +38,7 @@ return new class extends Migration
             $table->decimal('total', 10, 2);
             $table->enum('shipping_method', ['free_shipping', 'local', 'flat_rate']);
             $table->enum('payment_method', ['bank_transfer', 'cash_on_delivery', 'stripe']);
-            $table->string('status')->default('pending');
+            $table->string('status')->default('pending'); //processing, shipped, delivered, cancelled
 
             $table->timestamps();
         });

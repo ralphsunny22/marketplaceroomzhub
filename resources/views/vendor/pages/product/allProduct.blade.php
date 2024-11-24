@@ -50,7 +50,7 @@
                             <li class="separator"></li>
                             <li class="axil-breadcrumb-item active" aria-current="page">All Products</li>
                         </ul>
-                        <h1 class="title">Hello, Annie Taylor!</h1>
+                        <h1 class="title">Hello, {{$owner->name}}!</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-4">
@@ -75,8 +75,9 @@
                             <img src="{{asset('/assets/images/product/author1.png')}}" alt="Hello Annie">
                         </div>
                         <div class="media-body">
-                            <h5 class="title mb-0">Hello Annie</h5>
-                            <span class="joining-date">eTrade Member Since Sep 2020</span>
+                            <h5 class="title mb-0">Hello {{$owner->name}}</h5>
+                            <span class="joining-date">Member Since {{ $owner->created_at->format('F Y') }}
+                            </span>
                         </div>
                     </div>
                 </div>

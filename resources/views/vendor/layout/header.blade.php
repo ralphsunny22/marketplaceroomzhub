@@ -1,8 +1,10 @@
 @php
     use \App\CentralLogics\Helpers;
+    $categories = Helpers::categories();
+    $vendor = Helpers::vendor();
 @endphp
 <header class="header axil-header header-style-7">
-    <div class="axil-header-top">
+    <div class="axil-header-top d-none">
         <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
@@ -30,11 +32,11 @@
         <div class="container-fluid">
             <div class="header-navbar">
                 <div class="header-brand">
-                    <a href="index.html" class="logo logo-dark">
+                    <a href="{{route('landing')}}" class="logo logo-dark">
                         {{-- <img src="{{asset('/assets/images/logo/logo.png')}}" alt="Site Logo"> --}}
                         <h4>MarketPlace</h4>
                     </a>
-                    <a href="index.html" class="logo logo-light">
+                    <a href="{{route('landing')}}" class="logo logo-light">
                         <img src="{{asset('/assets/images/logo/logo-light.png')}}" alt="Site Logo">
                     </a>
                 </div>
@@ -42,34 +44,29 @@
                     <nav class="mainmenu-nav">
                         <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
                         <div class="mobile-nav-brand">
-                            <a href="index.html" class="logo">
+                            <a href="{{route('landing')}} class="logo">
                                 <img src="{{asset('/assets/images/logo/logo.png')}}" alt="Site Logo">
                             </a>
                         </div>
                         <ul class="mainmenu">
                             <li class="dropdown">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdown-header-menu" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="far fa-th-large"></i> Menu
+                                    <i class="far fa-th-large"></i> Categories
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdown-header-menu">
-                                    <li><a class="dropdown-item" href="{{ route('allProduct') }}">Products</a></li>
-                                    <li><a class="dropdown-item" href="shop-sidebar.html">Electronics</a></li>
-                                    <li><a class="dropdown-item" href="shop-sidebar.html">Home Decor</a></li>
-                                    <li><a class="dropdown-item" href="shop-sidebar.html">Medicine</a></li>
-                                    <li><a class="dropdown-item" href="shop-sidebar.html">Furniture</a></li>
-                                    <li><a class="dropdown-item" href="shop-sidebar.html">Crafts</a></li>
-                                    <li><a class="dropdown-item" href="shop-sidebar.html">Accessories</a></li>
-                                    <li><a class="dropdown-item" href="shop-sidebar.html">Handicraft</a></li>
+                                    @foreach ($categories as $item)
+                                        <li><a class="dropdown-item" href="{{ route('categoryShop', $item->slug) }}">{{ $item->name }}</a></li>
+                                    @endforeach
                                 </ul>
                             </li>
                             <li>
                                 <a href="{{ route('vendorDashboard') }}"><i class="fas fa-th-large"></i> Dashboard</a>
                             </li>
                             <li>
-                                <a href="{{ route('vendorShop', '1') }}"><i class="fas fa-stream"></i>My Shop</a>
+                                <a href="{{ route('vendorShop', ['owner_id'=>$owner->id, 'shop_slug'=>$vendor->slug]) }}"><i class="fas fa-stream"></i>My Shop</a>
                             </li>
                             <li>
-                                <a href="contact.html"><i class="far fa-bags-shopping"></i>Orders</a>
+                                <a href="{{ route('vendorOrders') }}"><i class="far fa-bags-shopping"></i>Orders</a>
                             </li>
                             <li>
                                 <a href="contact.html"><i class="far fa-user"></i>Customers</a>
@@ -109,22 +106,30 @@
                                 <span class="title">QUICKLINKS</span>
                                 <ul>
                                     <li>
-                                        <a href="my-account.html">My Account</a>
+                                        <a href="{{ route('vendorAccount') }}">My Account</a>
                                     </li>
-                                    <li>
+                                    <li class="d-none">
                                         <a href="#">Initiate return</a>
                                     </li>
                                     <li>
                                         <a href="#">Support</a>
                                     </li>
-                                    <li>
+                                    <li class="d-none">
                                         <a href="#">Language</a>
                                     </li>
                                 </ul>
+                                @if (Auth::guest())
                                 <div class="login-btn">
-                                    <a href="sign-in.html" class="axil-btn btn-bg-primary">Login</a>
+                                    <a href="{{ route('login') }}" class="axil-btn btn-bg-primary">Login</a>
                                 </div>
-                                <div class="reg-footer text-center">No account yet? <a href="sign-up.html" class="btn-link">REGISTER HERE.</a></div>
+                                <div class="reg-footer text-center">No account yet? <a href="{{ route('register') }}" class="btn-link">REGISTER HERE.</a></div>
+
+                                @else
+                                <div class="login-btn">
+                                    <a href="{{ route('logout') }}" class="axil-btn btn-bg-primary">Logout</a>
+                                </div>
+                                @endif
+
                             </div>
                         </li>
                         <li class="axil-mobile-toggle">

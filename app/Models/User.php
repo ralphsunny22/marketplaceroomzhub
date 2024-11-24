@@ -46,4 +46,19 @@ class User extends Authenticatable
     public function products() {
         return $this->hasMany(Product::class, 'created_by');
     }
+
+    public function getBgColor($status) {
+
+        $allStatus = [
+            ['name'=>'active', 'bgColor'=>'success'],
+            ['name'=>'inactive', 'bgColor'=>'danger'],
+        ];
+
+        foreach ($allStatus as $statusItem) {
+            if ($statusItem['name'] === $status) {
+                return $statusItem['bgColor'];
+            }
+        }
+        return null; // Return null or a default value if the status is not found
+    }
 }

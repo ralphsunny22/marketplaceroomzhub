@@ -1,6 +1,6 @@
 <footer class="axil-footer-area footer-style-3 footer-dark">
     <!-- Start Footer Top Area  -->
-    <div class="footer-top">
+    <div class="footer-top d-none">
         <div class="container">
             <div class="footer-widget-warp">
                 <div class="row">
@@ -137,7 +137,9 @@
         <div class="container">
             <div class="copyright-left d-flex flex-wrap justify-content-center">
                 <ul class="quick-link">
+                    <li class="d-none"><a href="privacy-policy.html">Privacy Policy</a></li>
                     <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
                     <li><a href="terms-of-service.html">Terms of Service</a></li>
                 </ul>
                 <ul class="quick-link">

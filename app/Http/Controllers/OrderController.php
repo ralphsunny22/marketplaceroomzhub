@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\Vendor;
+use App\Models\Product;
 use App\Mail\OrderConfirmationMail;
 use Illuminate\Support\Facades\Mail;
 
@@ -17,8 +19,8 @@ class OrderController extends Controller
         // try {
             //code...
         $request->validate([
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
+            'first_name' => 'nullable|string',
+            'last_name' => 'nullable|string',
             'billing_country' => 'required|string',
             'billing_address1' => 'required|string',
             'billing_address2' => 'nullable',
@@ -42,8 +44,8 @@ class OrderController extends Controller
         ]);
 
         // Calculate the total from the cart
-        // $authUserId = auth()->id();
-        $authUserId = 1;
+        $authUserId = auth()->id();
+        // $authUserId = 1;
         $cart = Cart::where('created_by', $authUserId)->first();
 
         // Use the session as fallback if user is not logged in
@@ -51,6 +53,16 @@ class OrderController extends Controller
 
         // Calculate total
         $cartTotal = 0;
+        $firstProductInCart = $cartItems; // Your JSON-like structure
+
+        // Extract the first key
+        $firstKey = array_key_first($firstProductInCart);
+
+        // Extract the first item's value using the key
+        // $firstItem = $firstProductInCart[$firstKey];
+
+        $vendorId = Product::find($firstKey)->created_by;
+
         foreach ($cartItems as $item) {
             $cartTotal += $item['price'] * $item['quantity'];
         }
@@ -66,8 +78,9 @@ class OrderController extends Controller
             $order = Order::create([
                 'created_by' => $authUserId, // If logged in, otherwise nullable
                 'products' => $cartItems,
-                'first_name' => $request['first_name'],
-                'last_name' => $request['last_name'],
+                'vendor_id' => $vendorId,
+                // 'first_name' => $request['first_name'],
+                // 'last_name' => $request['last_name'],
                 'billing_country' => $request['billing_country'],
                 'billing_address1' => $request['billing_address1'],
                 'billing_address2' => !empty($request['billing_address2']) ? $request['billing_address2'] : null,
@@ -94,8 +107,9 @@ class OrderController extends Controller
             $order = Order::create([
                 'created_by' => $authUserId, // If logged in, otherwise nullable
                 'products' => $cartItems,
-                'first_name' => $request['first_name'],
-                'last_name' => $request['last_name'],
+                'vendor_id' => $vendorId,
+                'first_name' => null,
+                'last_name' => null,
                 'billing_country' => $request['billing_country'],
                 'billing_address1' => $request['billing_address1'],
                 'billing_address2' => !empty($request['billing_address2']) ? $request['billing_address2'] : null,

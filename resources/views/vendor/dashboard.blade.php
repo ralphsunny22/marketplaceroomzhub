@@ -33,6 +33,23 @@
     .dt-paging nav{
         display: inline-flex !important;
     }
+    .newsletter-inner textarea {
+        padding-left: 66px;
+        width: 65%;
+
+        font-size: 14px;
+        font-weight: 400;
+        height: auto;
+        line-height: 30px;
+        background: #fff;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        padding: 0 30px;
+        outline: none;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
 </style>
 @endsection
 
@@ -48,9 +65,9 @@
                         <ul class="axil-breadcrumb">
                             <li class="axil-breadcrumb-item"><a href="index.html">Home</a></li>
                             <li class="separator"></li>
-                            <li class="axil-breadcrumb-item active" aria-current="page">My Account</li>
+                            <li class="axil-breadcrumb-item active" aria-current="page">Vendor Dashbaord</li>
                         </ul>
-                        <h1 class="title">Hello, Annie Taylor!</h1>
+                        <h1 class="title">Hello, {{ $authUser?->name }}!</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-4">
@@ -86,50 +103,54 @@
                         <div class="col-lg-3">
                             <div class="form-group border text-center p-3 dashboard-card">
                                 <h5>Revenue</h5>
-                                <div>500</div>
+                                <div>0</div>
                             </div>
                         </div>
 
                         <div class="col-lg-3">
                             <div class="form-group border text-center p-3 dashboard-card">
                                 <h5>Sales</h5>
-                                <div>500</div>
+                                <div>0</div>
                             </div>
                         </div>
 
                         <div class="col-lg-3">
                             <div class="form-group border text-center p-3 dashboard-card">
                                 <h5>Profit</h5>
-                                <div>500</div>
+                                <div>0</div>
                             </div>
                         </div>
 
                         <div class="col-lg-3">
                             <div class="form-group border text-center p-3 dashboard-card">
                                 <h5>Loss</h5>
-                                <div>500</div>
+                                <div>0</div>
                             </div>
                         </div>
 
                         <div class="col-lg-3">
                             <div class="form-group border text-center p-3 dashboard-card">
                                 <h5>Customers</h5>
-                                <div>500</div>
+                                <div>0</div>
                             </div>
                         </div>
 
                         <div class="col-lg-3">
+                            <a href="{{ route('vendorAllProduct') }}">
                             <div class="form-group border text-center p-3 dashboard-card">
                                 <h5>Products</h5>
-                                <div>500</div>
+                                <div>0</div>
                             </div>
+                            </a>
                         </div>
 
                         <div class="col-lg-3">
+                            <a href="{{route('vendorOrders')}}">
                             <div class="form-group border text-center p-3 dashboard-card">
                                 <h5>Orders</h5>
-                                <div>500</div>
+                                <div>0</div>
                             </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -144,14 +165,28 @@
         <div class="container">
             <div class="etrade-newsletter-wrapper bg_image bg_image--5">
                 <div class="newsletter-content">
-                    <span class="title-highlighter highlighter-primary2"><i class="fas fa-envelope-open"></i>Newsletter</span>
-                    <h2 class="title mb--40 mb_sm--30">Get weekly update</h2>
-                    <div class="input-group newsletter-form">
+                    <span class="title-highlighter highlighter-primary2"><i class="fas fa-envelope-open"></i>Contact Us</span>
+                    <h2 class="title mb--40 mb_sm--30">Need Help?</h2>
+                    <div class="input-group newsletter-form d-none">
                         <div class="position-relative newsletter-inner mb--15">
                             <input placeholder="example@gmail.com" type="text">
                         </div>
-                        <button type="submit" class="axil-btn mb--15">Subscribe</button>
+                        <button type="submit" class="axil-btn mb--15">Submit</button>
                     </div>
+
+                    <div class="newsletter-form d-block">
+                        <div class="input-group newsletter-form">
+                            <div class="position-relative newsletter-inner mb--15">
+                                <input placeholder="Title" type="text">
+                            </div>
+                            <button type="submit" class="axil-btn mb--15">Submit</button>
+                        </div>
+                        <div class="newsletter-inner mb--15">
+                            <textarea name="business_description" class="form-control {{ $errors->has('business_description') ? 'is-invalid' : '' }}" cols="5" rows="5">{{ old('business_description') }}</textarea>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>

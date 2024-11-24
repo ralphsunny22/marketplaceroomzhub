@@ -48,7 +48,7 @@
                         <ul class="axil-breadcrumb">
                             <li class="axil-breadcrumb-item"><a href="/">Home</a></li>
                             <li class="separator"></li>
-                            <li class="axil-breadcrumb-item" aria-current="page"><a href="{{ route('allProduct') }}">All Products</a></li>
+                            <li class="axil-breadcrumb-item" aria-current="page"><a href="{{ route('vendorAllProduct') }}">All Products</a></li>
                             <li class="separator"></li>
                             <li class="axil-breadcrumb-item active" aria-current="page">Add Product</li>
                         </ul>
