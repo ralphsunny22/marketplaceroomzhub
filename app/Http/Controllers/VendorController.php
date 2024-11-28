@@ -246,7 +246,7 @@ class VendorController extends Controller
     {
         $authUser = auth()->user();
         $owner = $authUser;
-        $products = Product::where('created_vy', $owner->id)->get();
+        $products = Product::where('created_by', $owner->id)->get();
         return view('vendor.pages.product.addProduct', compact('products', 'owner' ));
     }
 
@@ -303,8 +303,10 @@ class VendorController extends Controller
     // Show the edit form
     public function editProdduct($id)
     {
+        $authUser = auth()->user();
+        $owner = $authUser;
         $product = Product::findOrFail($id);
-        return view('vendor.pages.product.editProduct', compact('product' ));
+        return view('vendor.pages.product.editProduct', compact('product', 'owner' ));
     }
 
     /**

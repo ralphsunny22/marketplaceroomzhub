@@ -128,7 +128,7 @@
                             </div>
                             <div class="product-hover-action">
                                 <ul class="cart-action">
-                                    <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
+                                    <li class="wishlist d-none"><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
                                     <li class="select-option add-to-cart-multiple" data-id="{{ $item->id }}">
                                         <a href="javascript:void(0)" >
                                           Add to Cart
@@ -178,7 +178,7 @@
     </div>
     <!-- End Shop Area  -->
     <!-- Start Axil Newsletter Area  -->
-    <div class="axil-newsletter-area axil-section-gap pt--0">
+    <div class="axil-newsletter-area axil-section-gap pt--0 d-none">
         <div class="container">
             <div class="etrade-newsletter-wrapper bg_image bg_image--5">
                 <div class="newsletter-content">

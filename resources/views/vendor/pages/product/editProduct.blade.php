@@ -64,7 +64,7 @@
                             <li class="separator"></li>
                             <li class="axil-breadcrumb-item active" aria-current="page">Add Product</li>
                         </ul>
-                        <h1 class="title">Hello, Annie Taylor!</h1>
+                        <h1 class="title">Hello, {{$owner->name}}</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-4">
@@ -260,7 +260,7 @@
     <!-- End My Account Area  -->
 
     <!-- Start Axil Newsletter Area  -->
-    <div class="axil-newsletter-area axil-section-gap pt--0">
+    <div class="axil-newsletter-area axil-section-gap pt--0 d-none">
         <div class="container">
             <div class="etrade-newsletter-wrapper bg_image bg_image--5">
                 <div class="newsletter-content">

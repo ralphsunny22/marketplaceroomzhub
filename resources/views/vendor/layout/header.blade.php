@@ -76,13 +76,13 @@
                 </div>
                 <div class="header-action">
                     <ul class="action-list">
-                        <li class="axil-search d-none-laptop">
+                        <li class="d-none axil-search d-none-laptop">
                             <input type="search" class="placeholder product-search-input" name="search2" id="search2" value="" maxlength="128" placeholder="Search" autocomplete="off">
                             <button type="submit" class="icon wooc-btn-search">
                                 <i class="far fa-search"></i>
                             </button>
                         </li>
-                        <li class="axil-search d-none-desktop">
+                        <li class="d-none axil-search d-none-desktop">
                             <a href="javascript:void(0)" class="header-search-icon" title="Search">
                                 <i class="far fa-search"></i>
                             </a>
@@ -93,7 +93,7 @@
                                 <i class="far fa-shopping-cart"></i>
                             </a>
                         </li>
-                        <li class="wishlist">
+                        <li class="d-none wishlist">
                             <a href="wishlist.html">
                                 <i class="far fa-heart"></i>
                             </a>

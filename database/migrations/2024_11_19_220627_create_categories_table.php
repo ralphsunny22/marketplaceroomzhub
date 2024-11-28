@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->string('slug')->nullable();
             $table->string('uuid')->nullable();
+            $table->string('featured_logo')->default('noimage.png');
 
             $table->timestamps();
         });

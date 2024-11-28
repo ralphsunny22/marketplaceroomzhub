@@ -20,6 +20,7 @@ class CategorySeeder extends Seeder
         $category->created_by = 1;
         $category->slug = Str::slug('Fashion');
         $category->uuid = (string) Str::uuid();
+        $category->featured_logo = 'noimage.png';
         $category->save();
 
         $category = new Category();
@@ -27,6 +28,7 @@ class CategorySeeder extends Seeder
         $category->created_by = 1;
         $category->slug = Str::slug('Electronics');
         $category->uuid = (string) Str::uuid();
+        $category->featured_logo = 'noimage.png';
         $category->save();
 
         $category = new Category();
@@ -34,6 +36,7 @@ class CategorySeeder extends Seeder
         $category->created_by = 1;
         $category->slug = Str::slug('Health');
         $category->uuid = (string) Str::uuid();
+        $category->featured_logo = 'noimage.png';
         $category->save();
 
         $category = new Category();
@@ -41,6 +44,7 @@ class CategorySeeder extends Seeder
         $category->created_by = 1;
         $category->slug = Str::slug('Furniture');
         $category->uuid = (string) Str::uuid();
+        $category->featured_logo = 'noimage.png';
         $category->save();
 
         $category = new Category();
@@ -48,6 +52,7 @@ class CategorySeeder extends Seeder
         $category->created_by = 1;
         $category->slug = Str::slug('General');
         $category->uuid = (string) Str::uuid();
+        $category->featured_logo = 'noimage.png';
         $category->save();
     }
 }

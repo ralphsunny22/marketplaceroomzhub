@@ -12,7 +12,7 @@
                 <div class="col-md-6">
                     <div class="main-slider-content">
                         <h1 class="title">Welcome to RoomzHub MarketPlace.</h1>
-                        <div class="shop-btn">
+                        <div class="shop-btn d-none">
                             <a href="shop.html" class="axil-btn btn-bg-primary"><i class="far fa-shopping-cart"></i> Check
                                 it Out!</a>
                         </div>
@@ -356,22 +356,22 @@
     <div class="axil-product-area bg-color-white section-gap-80-35">
         <div class="container">
             <div class="section-title-border">
-                <h2 class="title">Our Products 💥</h2>
-                <div class="view-btn"><a href="shop.html">View All Products</a></div>
+                <h2 class="title">Available Vendors 💥</h2>
+                <div class="view-btn d-none"><a href="shop.html">View All Products</a></div>
             </div>
-            @if (count($products) > 0)
+            @if (count($vendors) > 0)
             <div class="row">
-                @foreach ($products as $item)
+                @foreach ($vendors as $item)
                 <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
                     <div class="axil-product product-style-one has-color-pick mt--40">
                         <div class="thumbnail">
                             <a href="javascript:void(0);">
                                 <img src="{{ $item->featured_image }}" alt="Product Images">
                             </a>
-                            <div class="label-block label-right d-none">
-                                <div class="product-badget">20% OFF</div>
+                            <div class="label-block label-right">
+                                <div class="product-badget">{{$item->business_name }}</div>
                             </div>
-                            <div class="product-hover-action">
+                            <div class="product-hover-action d-none">
                                 <ul class="cart-action">
                                     <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
                                     <li class="select-option add-to-cart-multiple" data-id="{{ $item->id }}">
@@ -384,8 +384,21 @@
                                     <li class="quickview" data-item="{{ json_encode($item) }}"><a href="#" data-bs-toggle="modal" data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
                                 </ul>
                             </div>
+                            <div class="product-hover-action">
+                                <ul class="cart-action">
+                                    <li class="wishlist d-none"><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
+                                    <li class="select-option">
+                                        <a href="{{ route('vendorShop', ['owner_id'=>$item->user_id, 'shop_slug'=>$item->business_slug]) }}" >
+                                          View Products
+                                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none;"></span>
+                                        </a>
+
+                                    </li>
+                                    <li class="quickview d-none"><i class="far fa-eye"></i></a></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="product-content">
+                        <div class="product-content d-none">
                             <div class="inner">
                                 <h5 class="title"><a href="{{ route('singleProduct', $item->id) }}">{{ $item->name }}</a></h5>
                                 <div class="product-price-variant">
@@ -404,6 +417,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 @endforeach
@@ -574,10 +588,10 @@
     <div class="axil-new-arrivals-product-area fullwidth-container flash-sale-area section-gap-80-35">
         <div class="container ml--xxl-0">
             <div class="section-title-border slider-section-title">
-                <h2 class="title">Recently Viewed 💥</h2>
+                <h2 class="title">Categories 💥</h2>
             </div>
 
-            <div class="recently-viwed-activation slick-layout-wrapper--15 axil-slick-angle angle-top-slide">
+            <div class="d-none recently-viwed-activation slick-layout-wrapper--15 axil-slick-angle angle-top-slide">
                 @if (count($products) > 0)
                 @foreach ($products as $item)
 
@@ -601,6 +615,58 @@
                             </div>
                         </div>
                         <div class="product-content">
+                            <div class="inner">
+                                <h5 class="title"><a href="single-product-8.html">{{ $item->name }}</a></h5>
+                                <div class="product-rating">
+                                    <span class="icon">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                                    <span class="rating-number">10</span>
+                                </div>
+                                <div class="product-price-variant">
+                                    <span class="price old-price d-none">$30.00</span>
+                                    <span class="price current-price">${{ $item->price }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @endforeach
+                @else
+                  <div>No Data Available</div>
+                @endif
+
+            </div>
+
+            <div class="recently-viwed-activation slick-layout-wrapper--15 axil-slick-angle angle-top-slide">
+                @if (count($categories) > 0)
+                @foreach ($categories as $item)
+
+                <div class="slick-single-layout">
+                    <div class="axil-product product-style-eight">
+                        <div class="thumbnail">
+                            <a href="{{ route('singleProduct', $item->id) }}">
+                                <img data-sal="zoom-out" data-sal-delay="100" data-sal-duration="800" loading="lazy" class="main-img" src="{{ $item->featured_logo }}" alt="Product Images">
+                            </a>
+                            <div class="label-block label-left">
+                                <div class="product-badget sale">{{$item->name}}</div>
+                            </div>
+                            <div class="product-hover-action">
+                                <ul class="cart-action">
+                                    <li class="select-option">
+                                        <a href="{{ route('categoryShop', $item->slug) }}">
+                                            <i class="far fa-shopping-cart"></i> View Products
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product-content d-none">
                             <div class="inner">
                                 <h5 class="title"><a href="single-product-8.html">{{ $item->name }}</a></h5>
                                 <div class="product-rating">

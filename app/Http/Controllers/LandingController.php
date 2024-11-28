@@ -18,6 +18,7 @@ use Firebase\JWT\Key;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Vendor;
 
 class LandingController extends Controller
 {
@@ -27,9 +28,11 @@ class LandingController extends Controller
     // public function landing($ivData="", $mData="")
     public function landing()
     {
+        $vendors = Vendor::all();
+        $categories = Category::all();
         $products = Product::all();
 
-        return view('pages.landing', compact('products' ));
+        return view('pages.landing', compact('products', 'categories', 'vendors'));
     }
 
     /**

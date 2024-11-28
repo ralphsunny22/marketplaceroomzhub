@@ -89,6 +89,10 @@ Route::get('/order-confirmation/{order}', [OrderController::class, 'orderConfirm
 Route::get('/payment/success/{order}', [StripeController::class, 'paymentSuccess'])->name('payment.success');
 Route::get('/payment/cancel/{order}', [StripeController::class, 'paymentCancel'])->name('payment.cancel');
 
+//chat
+Route::get('/chat/{activeUserId?}', [ChatController::class, 'chat'])->name('chat');
+Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('sendMessage');
+
 ////admin/////////////
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [DashboardController::class, 'adminDashboard'])->name('adminDashboard');
@@ -120,12 +124,6 @@ Route::group(['prefix' => 'admin'], function () {
 
     });
 
-    //subscription plans
-    // Route::group(['prefix' => 'plans'], function () {
-    //     Route::get('/get-all', [SubscriptionPlanController::class, 'getAll'])->name('getAllPlans');
-    //     Route::get('/store', [SubscriptionPlanController::class, 'store'])->name('storePlan');
-    //     Route::get('/get-single', [SubscriptionPlanController::class, 'getSingle'])->name('getSinglePlan');
-    // });
 });
 
 
