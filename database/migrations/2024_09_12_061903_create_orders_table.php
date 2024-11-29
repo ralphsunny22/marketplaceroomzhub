@@ -38,6 +38,7 @@ return new class extends Migration
             $table->decimal('total', 10, 2);
             $table->enum('shipping_method', ['free_shipping', 'local', 'flat_rate']);
             $table->enum('payment_method', ['bank_transfer', 'cash_on_delivery', 'stripe']);
+            $table->boolean('has_paid')->default(false);
             $table->string('status')->default('pending'); //processing, shipped, delivered, cancelled
 
             $table->timestamps();

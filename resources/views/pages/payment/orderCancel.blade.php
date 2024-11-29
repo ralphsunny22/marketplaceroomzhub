@@ -1,5 +1,5 @@
 @extends('layout.design')
-@section('title')Order Confirmation :: Marketplace @endsection
+@section('title')Order Cancel :: Marketplace @endsection
 
 @section('extra_css')@endsection
 
@@ -40,11 +40,12 @@
 
                 <div class="col-lg-12">
                     <div class="comming-soon-content">
-                        <h2 class="title">Order placed successfully!</h2>
-                        <p>We'll get back to you as soon as possible. <br><a href="javascript:void(0)">Thank you.</a></p>
+                        <h2 class="title">Order was not successfull</h2>
+                        <p>Try again to place an order. <br><a href="javascript:void(0)">Thank you.</a></p>
+
 
                         <div class="input-group newsletter-form">
-                            <a href="{{route('landing')}}" class="axil-btn mb--15">Continue Shopping</a>
+                            <a href="{{route('checkout')}}" class="axil-btn mb--15">Go Back</a>
                         </div>
 
                     </div>

@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="cart-update-btn-area">
-                        <div class="input-group product-cupon">
+                        <div class="input-group product-cupon d-none">
                             <input placeholder="Enter coupon code" type="text">
                             <div class="product-cupon-btn">
                                 <button type="submit" class="axil-btn btn-outline">Apply</button>
@@ -128,7 +128,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr class="order-tax">
+                                        <tr class="order-tax d-none">
                                             <td>Coupon Discount</td>
                                             <td>0.00</td>
                                         </tr>

@@ -34,6 +34,10 @@ class VendorSeeder extends Seeder
             $featured_image = 'noimage.png';
             $vendor->alternate_images = null;
 
+            $vendor->stripe_public_key = 'pk_test_51PWVRZRo7F6YokKUn8fu3QcnwgvWxXH5QJzgpXyEBXKKvJqdYgNJUI5dFAjK0H3dbQZreiMJ6BPrSIcG1qSdlph2005zd453A0';
+            $vendor->stripe_secret_key = 'sk_test_51PWVRZRo7F6YokKUC2wVvQKxOQMwv5ZZRlJHzcLtMN7m3fE1Tn2wMXdmIqmmVtJELvjiBTTY1zX0WMW38YtISpih00E1J0WyIR';
+            $vendor->stripe_webhook_secret = null;
+
             $vendor->save();
 
             ////////////////////////

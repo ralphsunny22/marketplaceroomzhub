@@ -31,6 +31,10 @@ return new class extends Migration
 
             $table->longText('business_description')->nullable();
 
+            $table->longText('stripe_public_key')->nullable();
+            $table->longText('stripe_secret_key')->nullable();
+            $table->longText('stripe_webhook_secret')->nullable();
+
             $table->string('status')->default('pending'); //confirmed, suspended
 
             $table->timestamps();

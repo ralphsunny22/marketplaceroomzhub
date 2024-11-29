@@ -86,6 +86,11 @@ Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout
 Route::post('/checkout', [OrderController::class, 'placeOrder'])->name('placeOrder');
 Route::get('/order-confirmation/{order}', [OrderController::class, 'orderConfirmation'])->name('orderConfirmation');
 
+Route::get('/checkout/stripe-success/{orderId?}/{cartId?}', [OrderController::class, 'stripeSuccess'])->name('checkout.stripeSuccess');
+Route::get('/checkout/success/{orderId}', [OrderController::class, 'orderSuccess'])->name('checkout.success');
+Route::get('/checkout/cancel', [OrderController::class, 'orderCancel'])->name('checkout.cancel');
+
+/////
 Route::get('/payment/success/{order}', [StripeController::class, 'paymentSuccess'])->name('payment.success');
 Route::get('/payment/cancel/{order}', [StripeController::class, 'paymentCancel'])->name('payment.cancel');
 

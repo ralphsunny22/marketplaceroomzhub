@@ -93,7 +93,7 @@
                                 <i class="far fa-shopping-cart"></i>
                             </a>
                         </li>
-                        <li class="d-none wishlist">
+                        <li class="wishlist d-none">
                             <a href="wishlist.html">
                                 <i class="far fa-heart"></i>
                             </a>

@@ -10,6 +10,9 @@ use App\Models\Product;
 use App\Mail\OrderConfirmationMail;
 use Illuminate\Support\Facades\Mail;
 
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
+
 class OrderController extends Controller
 {
     //proceed to checkout
@@ -44,9 +47,9 @@ class OrderController extends Controller
         ]);
 
         // Calculate the total from the cart
-        $authUserId = auth()->id();
-        // $authUserId = 1;
-        $cart = Cart::where('created_by', $authUserId)->first();
+        $authUser = auth()->user();
+        // $authUser->id = 1;
+        $cart = Cart::where('created_by', $authUser->id)->first();
 
         // Use the session as fallback if user is not logged in
         $cartItems = $cart->products;
@@ -67,16 +70,10 @@ class OrderController extends Controller
             $cartTotal += $item['price'] * $item['quantity'];
         }
 
-        // if (!empty($request->shipping_method)) {
-        //     $shippingFee = $this->calculateShippingFee($request->shipping_method);
-        //     $total = $cartTotal + $shippingFee;
-        // }
-
         if ($request['different_ship']=='different') {
             //billing details is different from shipping details
-            // Save the order
-            $order = Order::create([
-                'created_by' => $authUserId, // If logged in, otherwise nullable
+            $orderData = [
+                'created_by' => $authUser->id, // If logged in, otherwise nullable
                 'products' => $cartItems,
                 'vendor_id' => $vendorId,
                 // 'first_name' => $request['first_name'],
@@ -102,10 +99,10 @@ class OrderController extends Controller
                 'total' => $cartTotal,
                 'status' => 'pending',
 
-            ]);
+            ];
         } else {
-            $order = Order::create([
-                'created_by' => $authUserId, // If logged in, otherwise nullable
+            $orderData = [
+                'created_by' => $authUser->id, // If logged in, otherwise nullable
                 'products' => $cartItems,
                 'vendor_id' => $vendorId,
                 'first_name' => null,
@@ -131,11 +128,18 @@ class OrderController extends Controller
                 'total' => $cartTotal,
                 'status' => 'pending',
 
-            ]);
+            ];
+        }
+
+        if ($request['payment_method'] === 'stripe') {
+            // Redirect to Stripe payment
+            return $this->handleStripePayment($request, $orderData, $cart->id, $cartTotal, $authUser);
         }
 
         // Check if payment method is cash_on_delivery or manual bank_transfer
         if ($request['payment_method'] === 'cash_on_delivery' || $request['payment_method'] === 'bank_transfer') {
+            // Save the order
+            $order = Order::create($orderData);
             $cart->delete();
             // You can redirect to a confirmation page, etc.
             return redirect()->route('orderConfirmation', ['order' => $order->id]);
@@ -169,6 +173,67 @@ class OrderController extends Controller
             default:
                 return 0;
         }
+    }
+
+    // Handle Stripe Payment
+    protected function handleStripePayment($request, $orderData, $cartId, $cartTotal, $authUser)
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        $order = Order::create($orderData); //as pending
+        $amountTotal = (int) $cartTotal * 100;
+
+        $checkoutSession = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'usd',
+                    'product_data' => [
+                        'name' => 'Order from ' . $authUser->name,
+                    ],
+                    'unit_amount' => $amountTotal, // Example amount in cents
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => route('checkout.stripeSuccess', ['orderId'=>$order->id, 'cartId'=>$cartId]),
+            'cancel_url' => route('checkout.cancel'),
+        ]);
+
+        return redirect($checkoutSession->url);
+    }
+
+    // Stripe Success
+    public function stripeSuccess($orderId, $cartId)
+    {
+        // Save the order after payment success
+        $orderData = Order::find($orderId);
+        $orderData->status = 'paid';
+        $orderData->save();
+
+        if ($cartId) {
+            $cart = Cart::find($cartId);
+            $cart?->delete();
+        }
+
+        // Save the order now
+        // $order = Order::create(array_merge($orderData, ['status' => 'paid']));
+
+        return redirect()->route('checkout.success', ['orderId' => $orderData->id]);
+    }
+
+    // Order Success
+    public function orderSuccess($orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        // return view('order-success', compact('order'));
+        return view('pages.payment.orderConfirmation', compact('order'));
+    }
+
+    // Cancel Order
+    public function orderCancel()
+    {
+        return view('pages.payment.orderCancel', compact('order'));
     }
 
 }

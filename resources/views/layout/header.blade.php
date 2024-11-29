@@ -127,7 +127,7 @@
                             </a>
                         </li>
 
-                        <li class="wishlist">
+                        <li class="wishlist d-none">
                             <a href="wishlist.html">
                                 <i class="far fa-heart"></i>
                             </a>
