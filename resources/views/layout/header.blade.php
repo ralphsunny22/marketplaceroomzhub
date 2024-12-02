@@ -139,9 +139,12 @@
                             <div class="my-account-dropdown">
                                 <span class="title">{{ Auth::guest() ? 'QUICK LINKS' : Auth::user()->name }}</span>
                                 <ul>
+                                    @if (Auth::guest())
                                     <li>
                                         <a href="{{ route('account') }}">My Account</a>
                                     </li>
+                                    @endif
+
                                     @if ($vendor)
                                     <li>
                                         <a href="{{ route('vendorDashboard') }}">Vendor Dashboard</a>

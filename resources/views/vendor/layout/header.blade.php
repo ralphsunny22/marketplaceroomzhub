@@ -105,9 +105,11 @@
                             <div class="my-account-dropdown">
                                 <span class="title">QUICKLINKS</span>
                                 <ul>
+                                    @if (Auth::guest())
                                     <li>
                                         <a href="{{ route('vendorAccount') }}">My Account</a>
                                     </li>
+                                    @endif
                                     <li class="d-none">
                                         <a href="#">Initiate return</a>
                                     </li>
