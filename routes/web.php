@@ -42,16 +42,16 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginPost'])->name('loginPost');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'registerPost'])->name('registerPost');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 //muti-login handler
 Route::get('/auth/auto-login', [AuthController::class, 'handleAutoLogin']);
 
-Route::get('/account', [AuthController::class, 'account'])->name('account');
-Route::post('/account', [AuthController::class, 'accountPost'])->name('accountPost');
+Route::get('/account', [AuthController::class, 'account'])->name('account')->middleware('auth');
+Route::post('/account', [AuthController::class, 'accountPost'])->name('accountPost')->middleware('auth');
 
 //vendor
-Route::group(['prefix' => 'vendors'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'vendors'], function () {
     Route::get('/', [VendorController::class, 'dashboard'])->name('vendorDashboard');
     Route::get('/account', [VendorController::class, 'vendorAccount'])->name('vendorAccount');
 
@@ -68,6 +68,8 @@ Route::group(['prefix' => 'vendors'], function () {
     Route::get('/orders/{order_id}', [VendorController::class, 'vendorSingleOrder'])->name('vendorSingleOrder');
     Route::post('/update-orders/{order_id}', [VendorController::class, 'updateOrderStatus'])->name('updateOrderStatus');
 
+});
+Route::group(['prefix' => 'vendors'], function () {
     Route::get('/shop/{owner_id}/{shop_slug?}', [VendorController::class, 'vendorShop'])->name('vendorShop');
 });
 
@@ -80,19 +82,19 @@ Route::get('/clear-cart', [CartController::class, 'clearCart'])->name('clearCart
 Route::get('/remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
 
 //checkout
-Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout')->middleware('auth');
 
 //order
-Route::post('/checkout', [OrderController::class, 'placeOrder'])->name('placeOrder');
-Route::get('/order-confirmation/{order}', [OrderController::class, 'orderConfirmation'])->name('orderConfirmation');
+Route::post('/checkout', [OrderController::class, 'placeOrder'])->name('placeOrder')->middleware('auth');
+Route::get('/order-confirmation/{order}', [OrderController::class, 'orderConfirmation'])->name('orderConfirmation')->middleware('auth');
 
-Route::get('/checkout/stripe-success/{orderId?}/{cartId?}', [OrderController::class, 'stripeSuccess'])->name('checkout.stripeSuccess');
-Route::get('/checkout/success/{orderId}', [OrderController::class, 'orderSuccess'])->name('checkout.success');
-Route::get('/checkout/cancel', [OrderController::class, 'orderCancel'])->name('checkout.cancel');
+Route::get('/checkout/stripe-success/{orderId?}/{cartId?}', [OrderController::class, 'stripeSuccess'])->name('checkout.stripeSuccess')->middleware('auth');
+Route::get('/checkout/success/{orderId}', [OrderController::class, 'orderSuccess'])->name('checkout.success')->middleware('auth');
+Route::get('/checkout/cancel', [OrderController::class, 'orderCancel'])->name('checkout.cancel')->middleware('auth');
 
 /////
-Route::get('/payment/success/{order}', [StripeController::class, 'paymentSuccess'])->name('payment.success');
-Route::get('/payment/cancel/{order}', [StripeController::class, 'paymentCancel'])->name('payment.cancel');
+Route::get('/payment/success/{order}', [StripeController::class, 'paymentSuccess'])->name('payment.success')->middleware('auth');
+Route::get('/payment/cancel/{order}', [StripeController::class, 'paymentCancel'])->name('payment.cancel')->middleware('auth');
 
 //chat
 Route::get('/chat/{activeUserId?}', [ChatController::class, 'chat'])->name('chat');
