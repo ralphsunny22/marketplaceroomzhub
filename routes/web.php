@@ -106,6 +106,11 @@ Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('send
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [DashboardController::class, 'adminDashboard'])->name('adminDashboard');
 
+    Route::group(['prefix' => 'auth'], function () {
+        Route::get('/login', [DashboardController::class, 'login'])->name('login');
+        Route::post('/login', [DashboardController::class, 'loginPost'])->name('loginPost');
+    });
+
     Route::group(['prefix' => 'customers'], function () {
         Route::get('/', [DashboardController::class, 'allCustomer'])->name('allCustomer');
     });

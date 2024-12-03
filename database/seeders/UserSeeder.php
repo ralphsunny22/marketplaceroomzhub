@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
         $user->name = 'RoomzHub Admin';
         $user->email = 'admin@roomzhub.com';
         $user->password = Hash::make('password');
+        $user->status = 'superadmin';
         $user->save();
 
         $user = new User();
