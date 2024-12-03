@@ -74,12 +74,14 @@ Route::group(['prefix' => 'vendors'], function () {
 });
 
 //cart
-Route::get('/add-to-cart-multiple/{id}', [CartController::class, 'addToCartMultiple'])->name('addToCartMultiple');
-Route::get('/add-to-cart/{id}/{qty}', [CartController::class, 'addToCart'])->name('addToCart');
-Route::get('/cart', [CartController::class, 'viewCart'])->name('cartList');
-Route::post('/cart', [CartController::class, 'updateCart'])->name('updateCart');
-Route::get('/clear-cart', [CartController::class, 'clearCart'])->name('clearCart');
-Route::get('/remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/add-to-cart-multiple/{id}', [CartController::class, 'addToCartMultiple'])->name('addToCartMultiple');
+    Route::get('/add-to-cart/{id}/{qty}', [CartController::class, 'addToCart'])->name('addToCart');
+    Route::get('/cart', [CartController::class, 'viewCart'])->name('cartList');
+    Route::post('/cart', [CartController::class, 'updateCart'])->name('updateCart');
+    Route::get('/clear-cart', [CartController::class, 'clearCart'])->name('clearCart');
+    Route::get('/remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
+});
 
 //checkout
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout')->middleware('auth');
