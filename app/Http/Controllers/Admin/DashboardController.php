@@ -69,7 +69,7 @@ class DashboardController extends Controller
     {
         $user = Auth::guard('web')->user();
         $auto_login_token = $user->auto_login_token;
-        $url = 'https://'.$section.'.roomzhub.com/admin/auth/auto-login?auto_login_token'.$auto_login_token;
+        $url = 'https://'.$section.'.roomzhub.com/admin/auth/auto-login?auto_login_token='.$auto_login_token;
         // return Redirect::away('http://127.0.0.1:9000/admin/auth/auto-login?auto_login_token='.$auto_login_token);
         return Redirect::away($url);
     }
