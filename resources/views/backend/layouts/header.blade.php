@@ -44,13 +44,13 @@
                     </a>
 
                     <!-- item-->
-                    <a href="{{route('autologin', 'holidayhub')}}" class="d-none dropdown-item">
+                    <a href="{{route('autologin', 'holidayhub')}}" class="dropdown-item">
                         <i class="fe-user me-1"></i>
                         <span>Home Swap</span>
                     </a>
 
                      <!-- item-->
-                     <a href="{{route('autologin', 'marketplace')}}" class="dropdown-item">
+                     <a href="{{route('autologin', 'marketplace')}}" class="d-none dropdown-item">
                         <i class="fe-briefcase me-1"></i>
                         <span>Market Place</span>
                     </a>
