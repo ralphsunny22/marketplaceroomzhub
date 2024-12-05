@@ -104,7 +104,7 @@ Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('send
 
 ////admin/////////////
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', [DashboardController::class, 'adminDashboard'])->name('adminDashboard');
+    Route::get('/', [DashboardController::class, 'adminDashboard'])->name('adminDashboard')->middleware('auth:web');
 
     Route::group(['prefix' => 'auth'], function () {
         Route::get('/logout', [DashboardController::class, 'logout'])->name('logout');
@@ -114,21 +114,21 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/auto-login', [DashboardController::class, 'handleAutoLogin'])->name('handleAutoLogin');
     });
 
-    Route::group(['prefix' => 'customers'], function () {
+    Route::group(['middleware' => 'auth:web', 'prefix' => 'customers'], function () {
         Route::get('/', [DashboardController::class, 'allCustomer'])->name('allCustomer');
     });
 
-    Route::group(['prefix' => 'vendors'], function () {
+    Route::group(['middleware' => 'auth:web', 'prefix' => 'vendors'], function () {
         Route::get('/{status?}', [DashboardController::class, 'allVendor'])->name('allVendor');
         Route::get('/single/{vendor_id}', [DashboardController::class, 'singleVendor'])->name('singleVendor');
     });
 
-    Route::group(['prefix' => 'products'], function () {
+    Route::group(['middleware' => 'auth:web', 'prefix' => 'products'], function () {
         Route::get('/{status?}', [DashboardController::class, 'allProduct'])->name('allProduct');
         Route::get('/detail/{product_id}', [DashboardController::class, 'productDetail'])->name('productDetail');
     });
 
-    Route::group(['prefix' => 'orders'], function () {
+    Route::group(['middleware' => 'auth:web', 'prefix' => 'orders'], function () {
         Route::get('/{status?}', [DashboardController::class, 'allOrder'])->name('allOrder');
         Route::get('/detail/{order_id}', [DashboardController::class, 'orderDetail'])->name('orderDetail');
         Route::post('/update-orders/{order_id}', [VendorController::class, 'updateOrderStatus'])->name('updateOrderStatus');
