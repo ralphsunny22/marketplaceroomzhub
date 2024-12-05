@@ -143,7 +143,7 @@
                     <li><a href="terms-of-service.html">Terms of Service</a></li>
                 </ul>
                 <ul class="quick-link">
-                    <li>© 2023. All rights reserved by <a target="_blank" href="https://axilthemes.com/">RoomzHub Marketplace</a>.</li>
+                    <li>© 2023. All rights reserved by <a target="_blank" href="https://cyberpackhq.com/">CyberPackHq</a>.</li>
                 </ul>
             </div>
         </div>
