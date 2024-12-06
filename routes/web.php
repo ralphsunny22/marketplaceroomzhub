@@ -38,8 +38,8 @@ Route::get('/shop', [LandingController::class, 'generalShop'])->name('generalSho
 Route::get('/shop/{categorySlug}', [LandingController::class, 'categoryShop'])->name('categoryShop');
 Route::get('/product/{id}', [ProductController::class, 'singleProduct'])->name('singleProduct');
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'loginPost'])->name('loginPost');
+Route::get('/login', [AuthController::class, 'login'])->name('loginFront');
+Route::post('/login', [AuthController::class, 'loginPost'])->name('loginFrontPost');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'registerPost'])->name('registerPost');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
@@ -121,6 +121,14 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => 'auth:web', 'prefix' => 'vendors'], function () {
         Route::get('/{status?}', [DashboardController::class, 'allVendor'])->name('allVendor');
         Route::get('/single/{vendor_id}', [DashboardController::class, 'singleVendor'])->name('singleVendor');
+    });
+
+    Route::group(['middleware' => 'auth:web', 'prefix' => 'categories'], function () {
+        Route::get('/', [DashboardController::class, 'allCategory'])->name('allCategory');
+        Route::get('/create', [DashboardController::class, 'createCategory'])->name('createCategory');
+        Route::post('/create', [DashboardController::class, 'createCategoryPost'])->name('createCategoryPost');
+        Route::get('/edit/{category_id}', [DashboardController::class, 'editCategory'])->name('editCategory');
+        Route::post('/edit/{category_id}', [DashboardController::class, 'editCategoryPost'])->name('editCategoryPost');
     });
 
     Route::group(['middleware' => 'auth:web', 'prefix' => 'products'], function () {

@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>eTrade || Sign In</title>
+    <title>RoomzHub::Marketplace || Sign In</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -64,7 +64,7 @@
                     <div class="axil-signin-form">
                         <h3 class="title">Sign in to Marketplace.</h3>
                         <p class="b2 mb--55">Enter your detail below</p>
-                        <form class="singin-form" action="{{ route('loginPost') }}" method="POST">@csrf
+                        <form class="singin-form" action="{{ route('loginFrontPost') }}" method="POST">@csrf
                             <div class="form-group">
                                 <label>Email</label>
                                 <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" value="{{ old('email') }}">

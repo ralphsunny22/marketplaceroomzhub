@@ -105,7 +105,7 @@
                             <div class="my-account-dropdown">
                                 <span class="title">QUICKLINKS</span>
                                 <ul>
-                                    @if (Auth::guest())
+                                    @if (!Auth::guest())
                                     <li>
                                         <a href="{{ route('vendorAccount') }}">My Account</a>
                                     </li>

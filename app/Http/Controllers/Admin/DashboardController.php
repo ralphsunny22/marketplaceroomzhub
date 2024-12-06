@@ -13,7 +13,11 @@ use App\CentralLogics\Helpers;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Vendor;
@@ -221,6 +225,63 @@ class DashboardController extends Controller
         return view('backend.vendor.singleVendor', compact('business', 'allStatus'));
     }
 
+    public function createCategory()
+    {
+        return view('backend.category.createCategory');
+    }
+
+    public function createCategoryPost(Request $request)
+    {
+        $user = Auth::guard('web')->user();
+        $category = new Category();
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $category->uuid = (string) Str::uuid();
+
+        // Handle the main image upload
+        $featured_logo = $this->upload('categories/', 'png', $request->file('featured_logo'), 'noimage.png');
+
+        $category->featured_logo = $featured_logo;
+        $category->save();
+
+        return back()->with('sucess', 'Categoty Saved Successfully');
+
+    }
+
+    public function editCategoryPost(Request $request, $category_id)
+    {
+        $user = Auth::guard('web')->user();
+        $category = Category::find($category_id);
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+
+        if ($request->hasFile('featured_logo')) {
+            // Delete old image if exists
+            if ($category->featured_logo && Storage::disk('public')->exists('categories/' . $category->featured_logo)) {
+                Storage::disk('public')->delete('categories/' . $category->featured_logo);
+            }
+
+            // Upload new image
+            $mainImageName = $this->upload('categories', $request->file('featured_logo')->getClientOriginalExtension(), $request->file('featured_logo'), 'noimage.png');
+            $category->featured_logo = $mainImageName;
+        }
+        $category->save();
+        return back()->with('sucess', 'Categoty Updated Successfully');
+    }
+
+    public function editCategory($category_id)
+    {
+        $category = Category::find($category_id);
+        return view('backend.category.editCategory', compact('category'));
+    }
+
+
+    public function allCategory()
+    {
+        $categories = Category::all();
+        return view('backend.category.allCategory', compact('categories'));
+    }
+
     public function allProduct($status="")
     {
         if ($status=="") {
@@ -301,6 +362,21 @@ class DashboardController extends Controller
         ];
         $alternateImages = $product->alternate_images ? json_decode($product->alternate_images) : null;
         return view('backend.product.productDetail', compact('product', 'allStatus', 'alternateImages'));
+    }
+
+    protected function upload(string $dir, string $format, $image, $default_image)
+    {
+        if ($image != null) {
+            $imageName = Carbon::now()->toDateString() . "-" . uniqid() . "." . $format;
+            if (!Storage::disk('public')->exists($dir)) {
+                Storage::disk('public')->makeDirectory($dir);
+            }
+            Storage::disk('public')->putFileAs($dir, $image, $imageName);
+        } else {
+            $imageName = $default_image;
+        }
+
+        return $imageName;
     }
 
     /**

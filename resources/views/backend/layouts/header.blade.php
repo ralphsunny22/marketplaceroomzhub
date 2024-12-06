@@ -44,7 +44,7 @@
                     </a>
 
                     <!-- item-->
-                    <a href="{{route('autologin', 'holidayhub')}}" class="dropdown-item">
+                    <a href="{{route('autologin', 'holiday')}}" class="dropdown-item">
                         <i class="fe-user me-1"></i>
                         <span>Home Swap</span>
                     </a>

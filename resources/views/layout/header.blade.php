@@ -139,20 +139,22 @@
                             <div class="my-account-dropdown">
                                 <span class="title">{{ Auth::guest() ? 'QUICK LINKS' : Auth::user()->name }}</span>
                                 <ul>
-                                    @if (Auth::guest())
+                                    @if (!Auth::guest())
                                     <li>
                                         <a href="{{ route('account') }}">My Account</a>
                                     </li>
                                     @endif
 
-                                    @if ($vendor)
-                                    <li>
-                                        <a href="{{ route('vendorDashboard') }}">Vendor Dashboard</a>
-                                    </li>
-                                    @else
+                                    @if (!Auth::guest())
+                                        @if ($vendor)
                                         <li>
-                                            <a href="{{ route('vendorRegister') }}">Become a Vendor</a>
+                                            <a href="{{ route('vendorDashboard') }}">Vendor Dashboard</a>
                                         </li>
+                                        @else
+                                            <li>
+                                                <a href="{{ route('vendorRegister') }}">Become a Vendor</a>
+                                            </li>
+                                        @endif
                                     @endif
 
                                     <li>
@@ -162,7 +164,7 @@
                                 </ul>
                                 @if (Auth::guest())
                                 <div class="login-btn">
-                                    <a href="{{ route('login') }}" class="axil-btn btn-bg-primary">Login</a>
+                                    <a href="{{ route('loginFront') }}" class="axil-btn btn-bg-primary">Login</a>
                                 </div>
                                 <div class="reg-footer text-center">No account yet? <a href="{{ route('register') }}" class="btn-link">REGISTER HERE.</a></div>
 

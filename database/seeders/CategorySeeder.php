@@ -32,14 +32,6 @@ class CategorySeeder extends Seeder
         $category->save();
 
         $category = new Category();
-        $category->name = 'Health';
-        $category->created_by = 1;
-        $category->slug = Str::slug('Health');
-        $category->uuid = (string) Str::uuid();
-        $category->featured_logo = 'noimage.png';
-        $category->save();
-
-        $category = new Category();
         $category->name = 'Furniture';
         $category->created_by = 1;
         $category->slug = Str::slug('Furniture');

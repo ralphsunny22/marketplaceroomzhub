@@ -21,7 +21,8 @@ class VendorController extends Controller
     public function vendorRegister()
     {
         $authUser = !Auth::guest() ? Auth::user() : "";
-        return view('vendor.pages.addVendor', compact('authUser'));
+        $owner = $authUser;
+        return view('vendor.pages.addVendor', compact('authUser', 'owner'));
     }
 
     public function vendorRegisterPost(Request $request)

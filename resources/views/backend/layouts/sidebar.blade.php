@@ -68,6 +68,31 @@
                 </a>
             </li>
 
+            <li class="menu-title">Categories</li>
+
+            <li class="menu-item">
+                <a href="#categoryListings" data-bs-toggle="collapse" class="menu-link">
+                    <span class="menu-icon"><i class="fa fa-home"></i></span>
+                    <span class="menu-text"> Category </span>
+                    <span class="menu-arrow ms-auto"><i class="fa fa-angle-right"></i></span>
+                </a>
+                <div class="collapse" id="categoryListings">
+                    <ul class="sub-menu">
+                        <li class="menu-item">
+                            <a href="{{route('createCategory')}}" class="menu-link">
+                                <span class="menu-text">Create Category</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{route('allCategory')}}" class="menu-link">
+                                <span class="menu-text">All Categories</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
             <li class="menu-title">Products</li>
 
             <li class="menu-item">

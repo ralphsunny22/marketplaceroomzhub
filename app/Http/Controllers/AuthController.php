@@ -24,9 +24,9 @@ class AuthController extends Controller
      */
     public function login()
     {
-        if (!Auth::guest()) {
-            return back();
-        }
+        // if (!Auth::guest()) {
+        //     return back();
+        // }
         // return '123';
         // Session::flush();
         return view('pages.auth.login');
