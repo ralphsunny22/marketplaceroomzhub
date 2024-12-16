@@ -127,10 +127,10 @@ class AuthController extends Controller
     {
         $authUser = auth()->user();
 
-        Auth::logout($authUser);
-        Session::flush();
+        Auth::guard('web')->logout($authUser);
+        // Session::flush();
 
-        return redirect()->route('login');
+        return redirect()->route('loginFront');
     }
 
     /**

@@ -6,14 +6,14 @@
         <a href="{{route('adminDashboard')}}" class="logo-light">
             <img src="{{asset('/assets/backend/images/roomzhub-logo.png')}}" alt="logo" class="logo-lg">
             <img src="assets/images/logo-sm.png" alt="small logo" class="logo-sm">
-            <h4>MARKETPLACE</h4>
+            <h4>Shoppers Hub</h4>
         </a>
 
         <!-- Brand Logo Dark -->
         <a href="{{route('adminDashboard')}}" class="logo-dark">
             <img src="{{asset('/assets/backend/images/roomzhub-logo.png')}}" alt="dark logo" class="logo-lg">
             <img src="assets/images/logo-sm.png" alt="small logo" class="logo-sm">
-            <h4>MARKETPLACE</h4>
+            <h4>Shoppers Hub</h4>
         </a>
     </div>
 

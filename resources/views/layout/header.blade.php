@@ -4,6 +4,50 @@
     $allVendors = Helpers::allVendors();
     $vendor = Helpers::vendor();
 @endphp
+
+<style>
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-dark h5 {
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.logo-dropdown-toggle {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 8px 12px;
+}
+
+.logo-dropdown-menu {
+    top: 100%; /* Dropdown opens below */
+    left: 0;
+    margin-top: 0.5rem;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo-dropdown-item {
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+}
+
+.logo-dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+.logo-dropdown-toggle:hover,
+.logo-dropdown-toggle:focus {
+    text-decoration: underline;
+    color: #007bff;
+}
+</style>
+
 <header class="header axil-header header-style-7">
     <div class="axil-header-top d-none">
         <div class="container-fluid">
@@ -34,9 +78,23 @@
             <div class="header-navbar">
                 <div class="header-brand">
                     <a href="{{route('landing')}}" class="logo logo-dark">
-                        {{-- <img src="{{asset('/assets/images/logo/logo.png')}}" alt="Site Logo"> --}}
-                        <h4>MarketPlace</h4>
+                        <img src="{{asset('/assets/images/logo/logo.png')}}" alt="Site Logo" style="width: 157px; height: 40px">
+                        {{-- <h5>Shoppers Hub</h5> --}}
                     </a>
+                    <!-- Dropdown Section -->
+                    <li class="dropdown ms-4 list-unstyled">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdown-header-menu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="far fa-th-recycle"></i> Shoppers Hub
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown-header-menu">
+                            <li><a class="dropdown-item" href="{{route('landing')}}">Marketplace</a></li>
+                            <li><a class="dropdown-item" href="{{route('landing')}}">Holidays</a></li>
+                            <li><a class="dropdown-item" href="{{route('landing')}}">Rent a space</a></li>
+                            <li><a class="dropdown-item" href="{{route('landing')}}">Property Maintenance</a></li>
+                            <li><a class="dropdown-item" href="{{route('landing')}}">Marketplace</a></li>
+                        </ul>
+                    </li>
+
                     <a href="{{route('landing')}}" class="logo logo-light">
                         <img src="{{asset('/assets/images/logo/logo-light.png')}}" alt="Site Logo">
                     </a>
@@ -87,7 +145,7 @@
                             </li>
                             @endif
 
-                            <li class="dropdown">
+                            <li class="dropdown d-none">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdown-header-menu" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="far fa-th-recycle"></i> Marketplace
                                 </a>
@@ -100,8 +158,6 @@
 
                                 </ul>
                             </li>
-
-
 
                         </ul>
                     </nav>
@@ -170,7 +226,7 @@
 
                                 @else
                                 <div class="login-btn">
-                                    <a href="{{ route('logout') }}" class="axil-btn btn-bg-primary">Logout</a>
+                                    <a href="{{ route('logoutFront') }}" class="axil-btn btn-bg-primary">Logout</a>
                                 </div>
                                 @endif
 

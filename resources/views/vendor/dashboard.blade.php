@@ -73,7 +73,7 @@
                 <div class="col-lg-6 col-md-4">
                     <div class="inner">
                         <div class="bradcrumb-thumb">
-                            <img src="{{asset('/assets/images/product/product-45.png')}}" alt="Image">
+                            <img src="{{$vendor->featured_logo ? $vendor->featured_logo : $vendor->featured_image }}" alt="Image" style="width: 110px; height: 110px; border-radius: 110px;">
                         </div>
                     </div>
                 </div>

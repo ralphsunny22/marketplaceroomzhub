@@ -450,13 +450,16 @@
                             </div>
                             <div class="testimonial-slick-activation-three">
                                 <div class="slick-single-layout testimonial-style-three">
+                                    <p>No information available at the moment</p>
+                                </div>
+                                <div class="slick-single-layout testimonial-style-three d-none">
                                     <p>It`s no secret testimonials are the driving force behind purchasing decisions. They are such a great way to create immediate trust with prospective clients.</p>
                                     <div class="author-info">
                                         <h6 class="author-name">Wade Warren</h6>
                                         <span class="author-desg">Head of Marketing</span>
                                     </div>
                                 </div>
-                                <div class="slick-single-layout testimonial-style-three">
+                                <div class="slick-single-layout testimonial-style-three d-none">
                                     <p>It`s no secret testimonials are the driving force behind purchasing decisions. They are such a great way to create immediate trust with prospective clients.</p>
                                     <div class="author-info">
                                         <h6 class="author-name">Wade Warren</h6>

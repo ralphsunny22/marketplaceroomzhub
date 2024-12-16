@@ -33,9 +33,21 @@
             <div class="header-navbar">
                 <div class="header-brand">
                     <a href="{{route('landing')}}" class="logo logo-dark">
-                        {{-- <img src="{{asset('/assets/images/logo/logo.png')}}" alt="Site Logo"> --}}
-                        <h4>MarketPlace</h4>
+                        <img src="{{asset('/assets/images/logo/logo.png')}}" alt="Site Logo" style="width: 157px; height: 40px">
                     </a>
+                    <!-- Dropdown Section -->
+                    <li class="dropdown ms-4 list-unstyled">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdown-header-menu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="far fa-th-recycle"></i> Shoppers Hub
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown-header-menu">
+                            <li><a class="dropdown-item" href="{{route('landing')}}">Marketplace</a></li>
+                            <li><a class="dropdown-item" href="{{route('landing')}}">Holidays</a></li>
+                            <li><a class="dropdown-item" href="{{route('landing')}}">Rent a space</a></li>
+                            <li><a class="dropdown-item" href="{{route('landing')}}">Property Maintenance</a></li>
+                            <li><a class="dropdown-item" href="{{route('landing')}}">Marketplace</a></li>
+                        </ul>
+                    </li>
                     <a href="{{route('landing')}}" class="logo logo-light">
                         <img src="{{asset('/assets/images/logo/logo-light.png')}}" alt="Site Logo">
                     </a>
@@ -122,13 +134,13 @@
                                 </ul>
                                 @if (Auth::guest())
                                 <div class="login-btn">
-                                    <a href="{{ route('login') }}" class="axil-btn btn-bg-primary">Login</a>
+                                    <a href="{{ route('loginFront') }}" class="axil-btn btn-bg-primary">Login</a>
                                 </div>
                                 <div class="reg-footer text-center">No account yet? <a href="{{ route('register') }}" class="btn-link">REGISTER HERE.</a></div>
 
                                 @else
                                 <div class="login-btn">
-                                    <a href="{{ route('logout') }}" class="axil-btn btn-bg-primary">Logout</a>
+                                    <a href="{{ route('logoutFront') }}" class="axil-btn btn-bg-primary">Logout</a>
                                 </div>
                                 @endif
 

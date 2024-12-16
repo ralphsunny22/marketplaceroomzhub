@@ -148,7 +148,7 @@
 
                                                 <td>
                                                     <div class="d-flex justify-content-space-between align-items-center">
-                                                        <a class="btn btn-light btn-sm border border-info me-1 d-none"><i class="fa fa-edit text-info"></i></a>
+                                                        <a href="{{ route('editVendor', $item->id) }}" class="btn btn-light btn-sm border border-info me-1"><i class="fa fa-edit text-info"></i></a>
                                                         <a
                                                         href="{{ route('singleVendor', $item->id) }}"
                                                         class="btn btn-light btn-sm border border-primary me-1"><i class="fa fa-eye text-primary"></i></a>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone_number')->nullable();
-            $table->string('profile_picture')->nullable();
+            $table->string('profile_picture')->default('noimage.png');
 
             $table->longText('auto_login_token')->nullable();
 

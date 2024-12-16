@@ -110,8 +110,8 @@ class VendorController extends Controller
             'business_name' => 'required|string',
             'business_link' => 'nullable|string',
 
-            'featured_logo' => 'required|image|mimes:jpg,png,jpeg,webp|max:2048',
-            'featured_image' => 'required|image|mimes:jpg,png,jpeg,webp|max:2048',
+            'featured_logo' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
+            'featured_image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
             'alternate_images.*' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
 
             'business_city' => 'required|string',
@@ -168,7 +168,8 @@ class VendorController extends Controller
             }
 
             // Handle alternate images: removal and addition
-            $currentAlternateImages = json_decode($vendor->alternate_images, true) ?? [];
+            // $currentAlternateImages = json_decode($vendor->alternate_images, true) ?? [];
+            $currentAlternateImages = $vendor->getRawOriginal('alternate_images') ? json_decode($vendor->getRawOriginal('alternate_images'), true) : [];
 
             // Remove images marked for deletion
             if ($request->filled('deleted_images')) {
@@ -217,15 +218,17 @@ class VendorController extends Controller
         $authUser = Auth::user();
         $owner = $authUser;
         $products = 'all';
-        return view('vendor.dashboard', compact('products', 'authUser', 'owner' ));
+        $vendor = Vendor::with('category')->where(['user_id'=>$authUser->id])->first();
+        return view('vendor.dashboard', compact('products', 'authUser', 'owner', 'vendor'));
     }
 
     public function vendorShop($owner_id, $shop_slug="")
     {
         $owner = User::findOrFail($owner_id);
-        $shop = Vendor::where(['user_id'=>$owner_id, 'slug'=>$shop_slug])->first();
+        $shop = Vendor::where(['user_id'=>$owner_id])->first();
         // $authUserId = 1;
         $products = Product::where('created_by', $owner_id)->get();
+
         return view('vendor.pages.vendorShop', compact('products', 'owner', 'owner_id', 'shop', 'shop_slug'));
     }
 

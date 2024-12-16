@@ -42,7 +42,7 @@ Route::get('/login', [AuthController::class, 'login'])->name('loginFront');
 Route::post('/login', [AuthController::class, 'loginPost'])->name('loginFrontPost');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'registerPost'])->name('registerPost');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logoutFront')->middleware('auth');
 
 //muti-login handler
 Route::get('/auth/auto-login', [AuthController::class, 'handleAutoLogin']);
@@ -104,7 +104,7 @@ Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('send
 
 ////admin/////////////
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', [DashboardController::class, 'adminDashboard'])->name('adminDashboard')->middleware('auth:web');
+    Route::get('/', [DashboardController::class, 'adminDashboard'])->name('adminDashboard')->middleware('auth:admin');
 
     Route::group(['prefix' => 'auth'], function () {
         Route::get('/logout', [DashboardController::class, 'logout'])->name('logout');
@@ -114,16 +114,18 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/auto-login', [DashboardController::class, 'handleAutoLogin'])->name('handleAutoLogin');
     });
 
-    Route::group(['middleware' => 'auth:web', 'prefix' => 'customers'], function () {
+    Route::group(['middleware' => 'auth:admin', 'prefix' => 'customers'], function () {
         Route::get('/', [DashboardController::class, 'allCustomer'])->name('allCustomer');
     });
 
-    Route::group(['middleware' => 'auth:web', 'prefix' => 'vendors'], function () {
+    Route::group(['middleware' => 'auth:admin', 'prefix' => 'vendors'], function () {
         Route::get('/{status?}', [DashboardController::class, 'allVendor'])->name('allVendor');
         Route::get('/single/{vendor_id}', [DashboardController::class, 'singleVendor'])->name('singleVendor');
+        Route::get('/edit/{vendor_id}', [DashboardController::class, 'editVendor'])->name('editVendor');
+        Route::post('/edit/{vendor_id}', [DashboardController::class, 'editVendorPost'])->name('editVendorPost');
     });
 
-    Route::group(['middleware' => 'auth:web', 'prefix' => 'categories'], function () {
+    Route::group(['middleware' => 'auth:admin', 'prefix' => 'categories'], function () {
         Route::get('/', [DashboardController::class, 'allCategory'])->name('allCategory');
         Route::get('/create', [DashboardController::class, 'createCategory'])->name('createCategory');
         Route::post('/create', [DashboardController::class, 'createCategoryPost'])->name('createCategoryPost');
@@ -131,12 +133,12 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/edit/{category_id}', [DashboardController::class, 'editCategoryPost'])->name('editCategoryPost');
     });
 
-    Route::group(['middleware' => 'auth:web', 'prefix' => 'products'], function () {
+    Route::group(['middleware' => 'auth:admin', 'prefix' => 'products'], function () {
         Route::get('/{status?}', [DashboardController::class, 'allProduct'])->name('allProduct');
         Route::get('/detail/{product_id}', [DashboardController::class, 'productDetail'])->name('productDetail');
     });
 
-    Route::group(['middleware' => 'auth:web', 'prefix' => 'orders'], function () {
+    Route::group(['middleware' => 'auth:admin', 'prefix' => 'orders'], function () {
         Route::get('/{status?}', [DashboardController::class, 'allOrder'])->name('allOrder');
         Route::get('/detail/{order_id}', [DashboardController::class, 'orderDetail'])->name('orderDetail');
         Route::post('/update-orders/{order_id}', [VendorController::class, 'updateOrderStatus'])->name('updateOrderStatus');

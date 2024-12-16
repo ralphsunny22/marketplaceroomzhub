@@ -50,7 +50,7 @@
                 <div class="col-lg-6 col-md-4">
                     <div class="inner">
                         <div class="bradcrumb-thumb">
-                            <img src="{{asset('/assets/images/product/product-45.png')}}" alt="Image">
+                            <img src="{{$shop->featured_logo ? $shop->featured_logo : $shop->featured_image }}" alt="Image" style="width: 110px; height: 110px; border-radius: 110px;">
                         </div>
                     </div>
                 </div>
@@ -65,41 +65,7 @@
                 <div class="col-lg-12">
                     <div class="axil-shop-top">
                         <div class="row">
-                            <div class="col-lg-9 d-none">
-                                <div class="category-select">
 
-                                    <!-- Start Single Select  -->
-                                    <select class="single-select">
-                                        <option>Categories</option>
-                                        <option>Fashion</option>
-                                        <option>Electronics</option>
-                                        <option>Furniture</option>
-                                        <option>Beauty</option>
-                                    </select>
-                                    <!-- End Single Select  -->
-
-                                    <!-- Start Single Select  -->
-                                    <select class="single-select">
-                                        <option>Color</option>
-                                        <option>Red</option>
-                                        <option>Blue</option>
-                                        <option>Green</option>
-                                        <option>Pink</option>
-                                    </select>
-                                    <!-- End Single Select  -->
-
-                                    <!-- Start Single Select  -->
-                                    <select class="single-select">
-                                        <option>Price Range</option>
-                                        <option>0 - 100</option>
-                                        <option>100 - 500</option>
-                                        <option>500 - 1000</option>
-                                        <option>1000 - 1500</option>
-                                    </select>
-                                    <!-- End Single Select  -->
-
-                                </div>
-                            </div>
                             <div class="col-lg-12">
                                 <div class="category-select mt_md--10 mt_sm--10 justify-content-lg-end">
                                     <!-- Start Single Select  -->
@@ -165,7 +131,7 @@
                 <!-- End Single Product  -->
 
             </div>
-            <div class="text-center pt--30">
+            <div class="text-center pt--30 d-none">
                 <a href="#" class="axil-btn btn-bg-lighter btn-load-more">Load more</a>
             </div>
             @else
@@ -596,6 +562,38 @@ document.querySelector('.add-to-cart').addEventListener('click', function() {
             });
 });
 </script>
+
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
+<script>
+    $(document).ready(function () {
+        // Search input keyup event
+        $('.single-select').on('keyup', function () {
+            let searchText = $(this).val().toLowerCase(); // Get search input and convert to lowercase
+
+            // Loop through each product
+            $('.row--15 .col-xl-3').each(function () {
+                let productName = $(this).find('.product-content .title a').text().toLowerCase();
+
+                // Check if the product name includes the search text
+                if (productName.includes(searchText)) {
+                    $(this).show(); // Show matching product
+                } else {
+                    $(this).hide(); // Hide non-matching product
+                }
+            });
+
+            // Show 'No Product' message if all products are hidden
+            if ($('.row--15 .col-xl-3:visible').length === 0) {
+                $('.no-products-message').remove(); // Remove old message
+                $('.row--15').after('<div class="text-center pt--30 no-products-message"><h4>No matching products found</h4></div>');
+            } else {
+                $('.no-products-message').remove(); // Remove the 'no product' message
+            }
+        });
+    });
+</script>
+
 
 @endsection
 

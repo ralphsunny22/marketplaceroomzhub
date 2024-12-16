@@ -64,7 +64,7 @@
                 <div class="col-lg-6 col-md-8">
                     <div class="inner">
                         <ul class="axil-breadcrumb">
-                            <li class="axil-breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="axil-breadcrumb-item"><a href="/">Home</a></li>
                             <li class="separator"></li>
                             <li class="axil-breadcrumb-item active" aria-current="page">My Account</li>
                         </ul>
@@ -74,7 +74,7 @@
                 <div class="col-lg-6 col-md-4">
                     <div class="inner">
                         <div class="bradcrumb-thumb">
-                            <img src="assets/images/product/product-45.png" alt="Image">
+                            <img src="{{$vendor->featured_logo ? $vendor->featured_logo : $vendor->featured_image }}" alt="Image" style="width: 110px; height: 110px; border-radius: 110px;">
                         </div>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- Link -->
+                                                <!-- City -->
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>Business City</label>
@@ -312,7 +312,8 @@
                                                         @endif
                                                         @if ($vendor->alternate_images)
                                                             <div class="d-flex flex-wrap">
-                                                            @foreach (json_decode($vendor->alternate_images, true) as $index => $image)
+                                                            {{-- @foreach (json_decode($vendor->alternate_images, true) as $index => $image) --}}
+                                                            @foreach ($vendor->alternate_images as $index => $image)
                                                                 <div class="image-wrapper me-2" data-index="{{ $index }}">
                                                                     <img src="{{ $image }}" alt="Alternate Image" width="100">
                                                                     <button type="button" class="btn btn-danger remove-image" data-index="{{ $index }}">

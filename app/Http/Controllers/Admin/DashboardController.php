@@ -56,7 +56,7 @@ class DashboardController extends Controller
             }
 
             // Log the user in
-            $token = Auth::guard('web')->login($user);
+            $token = Auth::guard('admin')->login($user);
             return redirect()->route('adminDashboard');
 
         } catch (\Exception $e) {
@@ -71,7 +71,7 @@ class DashboardController extends Controller
 
     public function autologin($section)
     {
-        $user = Auth::guard('web')->user();
+        $user = Auth::guard('admin')->user();
         $auto_login_token = $user->auto_login_token;
         $url = 'https://'.$section.'.roomzhub.com/admin/auth/auto-login?auto_login_token='.$auto_login_token;
         // return Redirect::away('http://127.0.0.1:9000/admin/auth/auto-login?auto_login_token='.$auto_login_token);
@@ -106,24 +106,32 @@ class DashboardController extends Controller
             if($user->status !== 'superadmin'){
                 return back()->with('error', 'Unauthorised Process');
             }
+            if (Auth::guard('admin')->attempt([
+                'email' => $request->email,
+                'password' => $request->password,
+                'status' => 'superadmin' // Ensure only admin users can log in
+            ])) {
+                $auto_login_token = Helpers::generateJWT($user);
+                $user->auto_login_token = $auto_login_token;
+                $user->save();
 
-            $credentials = $request->only('email', 'password');
-            $check = Auth::guard('web')->attempt($credentials);
-            if (!$check) {
-                return back()->with('error', 'Invalid email or password, please check your credentials and try again');
+                Auth::guard('admin')->login($user);
+
+                return redirect()->route('adminDashboard');
             }
-            $user = Auth::getProvider()->retrieveByCredentials($credentials); //full user details
 
-            // if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-
-            //     return redirect()->intended('/admin');
+            // $credentials = $request->only('email', 'password');
+            // $check = Auth::guard('admin')->attempt($credentials);
+            // if (!$check) {
+            //     return back()->with('error', 'Invalid email or password, please check your credentials and try again');
             // }
+            // $user = Auth::getProvider()->retrieveByCredentials($credentials); //full user details
 
             $auto_login_token = Helpers::generateJWT($user);
             $user->auto_login_token = $auto_login_token;
             $user->save();
 
-            Auth::guard('web')->login($user);
+            Auth::guard('admin')->login($user);
 
 
             return redirect()->route('adminDashboard');
@@ -132,8 +140,8 @@ class DashboardController extends Controller
 
     public function logout()
     {
-        $user = Auth::guard('web')->user();
-        Auth::guard('web')->logout($user);
+        $user = Auth::guard('admin')->user();
+        Auth::guard('admin')->logout($user);
         return view('backend.auth.login');
     }
 
@@ -225,6 +233,109 @@ class DashboardController extends Controller
         return view('backend.vendor.singleVendor', compact('business', 'allStatus'));
     }
 
+    public function editVendorPost(Request $request, $vendor_id)
+    {
+        $authUser = Auth::user();
+        $rules = array(
+            'business_name' => 'required|string',
+            'business_link' => 'nullable|string',
+
+            'featured_logo' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
+            'featured_image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
+            'alternate_images.*' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
+
+            'business_city' => 'required|string',
+            'business_state' => 'required|string',
+            'business_country' => 'required|string',
+            'business_address' => 'required|string',
+        );
+        $messages = [
+            'business_name.required' => '* Business name is required',
+            'business_name.string'   => 'Invalid Characters',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        } else {
+            $vendor = Vendor::where(['id'=>$vendor_id])->first();
+
+            $vendor->business_name = $request->business_name;
+            $vendor->slug = Str::slug($request->business_name);
+            $vendor->business_link = $request->business_link ? $request->business_link : null;
+
+            $vendor->business_city = $request->business_city;
+            $vendor->business_state = $request->business_state;
+            $vendor->business_country = $request->business_country;
+            $vendor->business_address = $request->business_address;
+            $vendor->category_id = $request->category_id;
+
+            $vendor->business_description = $request->business_description;
+
+            // Handle the main image upload
+            if ($request->hasFile('featured_logo')) {
+                // Delete old image if exists
+                if ($vendor->featured_logo && Storage::disk('public')->exists('vendors/' . $vendor->featured_logo)) {
+                    Storage::disk('public')->delete('vendors/' . $vendor->featured_logo);
+                }
+
+                // Upload new image
+                $mainImageName = $this->upload('vendors', $request->file('featured_logo')->getClientOriginalExtension(), $request->file('featured_logo'), 'noimage.png');
+                $vendor->featured_logo = $mainImageName;
+            }
+
+            if ($request->hasFile('featured_image')) {
+                // Delete old image if exists
+                if ($vendor->featured_image && Storage::disk('public')->exists('vendors/' . $vendor->featured_image)) {
+                    Storage::disk('public')->delete('vendors/' . $vendor->featured_image);
+                }
+
+                // Upload new image
+                $mainImageName = $this->upload('vendors', $request->file('featured_image')->getClientOriginalExtension(), $request->file('featured_image'), 'noimage.png');
+                $vendor->featured_image = $mainImageName;
+            }
+
+            // Handle alternate images: removal and addition
+            // $currentAlternateImages = json_decode($vendor->alternate_images, true) ?? [];
+            $currentAlternateImages = $vendor->getRawOriginal('alternate_images') ? json_decode($vendor->getRawOriginal('alternate_images'), true) : [];
+
+            // Remove images marked for deletion
+            if ($request->filled('deleted_images')) {
+                $deletedIndexes = explode(',', $request->input('deleted_images'));
+                foreach ($deletedIndexes as $index) {
+                    if (isset($currentAlternateImages[$index])) {
+                        $imageToDelete = $currentAlternateImages[$index];
+                        if (Storage::disk('public')->exists('vendors/' . $imageToDelete)) {
+                            Storage::disk('public')->delete('vendors/' . $imageToDelete);
+                        }
+                        unset($currentAlternateImages[$index]);
+                    }
+                }
+            }
+
+            // Handle new alternate images
+            if ($request->hasFile('alternate_images')) {
+                foreach ($request->file('alternate_images') as $image) {
+                    $imageName = $this->upload('vendors', $image->getClientOriginalExtension(), $image, 'default_image.jpg');
+                    $currentAlternateImages[] = $imageName;
+                }
+            }
+
+            // Update the vendor's alternate images
+            $vendor->alternate_images = json_encode(array_values($currentAlternateImages)); // Re-index the array
+            $vendor->save();
+
+            return back()->with('sucess', 'Vendor Updated Successfully');
+        }
+    }
+
+    public function editVendor($vendor_id)
+    {
+        $authUser = auth()->user();
+        $vendor = Vendor::with('category')->where('id', $vendor_id)->first();
+
+        return view('backend.vendor.editVendor', compact('vendor'));
+    }
+
     public function createCategory()
     {
         return view('backend.category.createCategory');
@@ -232,7 +343,7 @@ class DashboardController extends Controller
 
     public function createCategoryPost(Request $request)
     {
-        $user = Auth::guard('web')->user();
+        $user = Auth::guard('admin')->user();
         $category = new Category();
         $category->name = $request->name;
         $category->slug = Str::slug($request->name);
@@ -250,7 +361,7 @@ class DashboardController extends Controller
 
     public function editCategoryPost(Request $request, $category_id)
     {
-        $user = Auth::guard('web')->user();
+        $user = Auth::guard('admin')->user();
         $category = Category::find($category_id);
         $category->name = $request->name;
         $category->slug = Str::slug($request->name);
