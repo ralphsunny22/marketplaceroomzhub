@@ -101,7 +101,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         } else {
-
+            //
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
