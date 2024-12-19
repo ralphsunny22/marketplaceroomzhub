@@ -1,7 +1,49 @@
 @extends('layout.design')
 @section('title')Market place :: RoomzHub @endsection
 
-@section('extra_css')@endsection
+@section('extra_css')
+<style>
+/* Main Container Grid Layout */
+.row--15 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 1.5rem; /* Space between grid items */
+    height: auto;
+}
+
+/* Thumbnail Container */
+.thumbnail {
+    grid-row: span 1;
+    grid-column: span 1;
+    height: 300px; /* Fixed height for all images */
+    background-color: #f5f5f5; /* Light background for placeholders */
+    position: relative; /* For pseudo-elements */
+    overflow: hidden; /* Crop overflowing parts of images */
+}
+
+/* Add a dashed border effect (optional) */
+.thumbnail::before {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border: 5px dashed white;
+    z-index: 1;
+}
+
+/* Image Styling */
+.thumbnail img {
+    width: 100%;         /* Full width */
+    height: 100%;        /* Full height */
+    object-fit: cover;   /* Crop to fill container while maintaining proportions */
+    display: block;
+    position: relative;
+    z-index: 2; /* Place above the dashed border */
+}
+
+
+
+</style>
+@endsection
 
 @section('content')
 <main class="main-wrapper">
@@ -30,12 +72,12 @@
                                 <div class="price">$15.22 - $15.22</div>
                                 <div class="product-rating">
                                     <span class="icon">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </span>
                                     <span class="rating-number">6,400</span>
                                 </div>
                             </div>
@@ -360,10 +402,10 @@
                 <div class="view-btn d-none"><a href="shop.html">View All Products</a></div>
             </div>
             @if (count($vendors) > 0)
-            <div class="row">
+            <div class="row row--15 d-none">
                 @foreach ($vendors as $item)
                 <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
-                    <div class="axil-product product-style-one has-color-pick mt--40">
+                    {{-- <div class="axil-product product-style-one has-color-pick mt--40"> --}}
                         <div class="thumbnail">
                             <a href="javascript:void(0);">
                                 <img src="{{ $item->featured_image }}" alt="Product Images">
@@ -418,10 +460,24 @@
                             </div>
                         </div>
 
-                    </div>
+                    {{-- </div> --}}
                 </div>
                 @endforeach
 
+            </div>
+
+            <div class="row--15">
+                @foreach ($vendors as $item)
+                    <div class="thumbnail">
+                        @if ($item->featured_image)
+                            <a href="{{ route('singleProduct', $item->id) }}">
+                                <img src="{{ $item->featured_image }}" alt="{{ $item->name }}">
+                            </a>
+                        @else
+                            <img src="{{ asset('/assets/images/no-image.png') }}" alt="No Image Available">
+                        @endif
+                    </div>
+                @endforeach
             </div>
             @endif
 

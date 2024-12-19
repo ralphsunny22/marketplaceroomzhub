@@ -40,13 +40,13 @@
                 <div class="col-sm-4">
                     <a href="index.html" class="site-logo d-none"><img src="assets/images/logo/logo.png" alt="logo"></a>
                     <a href="/">
-                        <h4>RoomzHub Marketplace</h4>
+                        <h4>RoomzHub Shoppers Hub</h4>
                     </a>
                 </div>
                 <div class="col-sm-8">
                     <div class="singin-header-btn">
                         <p>Already a member?</p>
-                        <a href="{{ route('login') }}" class="axil-btn btn-bg-secondary sign-up-btn">Sign In Now</a>
+                        <a href="{{ route('loginFront') }}" class="axil-btn btn-bg-secondary sign-up-btn">Sign In Now</a>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <div class="col-lg-6 offset-xl-2">
                 <div class="axil-signin-form-wrap">
                     <div class="axil-signin-form">
-                        <h3 class="title">Sign Up to Marketplace.</h3>
+                        <h3 class="title">Sign Up to Shoppers Hub.</h3>
                         <p class="b2 mb--55">Enter your detail below</p>
                         <form class="singin-form" action="{{ route('registerPost') }}" method="POST">@csrf
                             <div class="form-group">

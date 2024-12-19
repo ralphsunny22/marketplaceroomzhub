@@ -102,22 +102,22 @@ class AuthController extends Controller
             return back()->withErrors($validator)->withInput();
         } else {
 
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+
             $data = [
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => $request->password,
             ];
 
-            $secretKey = env('LOGIN_SECRET'); // Make sure this is set in the .env file
-
             $auto_login_token = Helpers::generateJWT($user);
-
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
             $user->auto_login_token = $auto_login_token;
             $user->save();
+
             Auth::login($user);
             return redirect()->route('landing');
         }
