@@ -222,12 +222,12 @@ class VendorController extends Controller
         return view('vendor.dashboard', compact('products', 'authUser', 'owner', 'vendor'));
     }
 
-    public function vendorShop($owner_id, $shop_slug="")
+    public function vendorShop($vendor_id, $shop_slug="")
     {
-        $owner = User::findOrFail($owner_id);
-        $shop = Vendor::where(['user_id'=>$owner_id])->first();
-        // $authUserId = 1;
-        $products = Product::where('created_by', $owner_id)->get();
+        $shop = Vendor::where(['id'=>$vendor_id])->first();
+        $owner = User::findOrFail($shop->user_id);
+        $owner_id = $owner->id;
+        $products = Product::where('created_by', $owner->id)->get();
 
         return view('vendor.pages.vendorShop', compact('products', 'owner', 'owner_id', 'shop', 'shop_slug'));
     }

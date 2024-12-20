@@ -75,7 +75,7 @@
                                 <a href="{{ route('vendorDashboard') }}"><i class="fas fa-th-large"></i> Dashboard</a>
                             </li>
                             <li>
-                                <a href="{{ route('vendorShop', ['owner_id'=>$owner->id, 'shop_slug'=>$vendor->slug]) }}"><i class="fas fa-stream"></i>My Shop</a>
+                                <a href="{{ route('vendorShop', ['vendor_id'=>$owner->id, 'shop_slug'=>$vendor->slug]) }}"><i class="fas fa-stream"></i>My Shop</a>
                             </li>
                             <li>
                                 <a href="{{ route('vendorOrders') }}"><i class="far fa-bags-shopping"></i>Orders</a>

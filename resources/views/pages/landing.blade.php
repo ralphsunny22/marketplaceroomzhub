@@ -40,8 +40,6 @@
     z-index: 2; /* Place above the dashed border */
 }
 
-
-
 </style>
 @endsection
 
@@ -402,12 +400,12 @@
                 <div class="view-btn d-none"><a href="shop.html">View All Products</a></div>
             </div>
             @if (count($vendors) > 0)
-            <div class="row row--15 d-none">
+            <div class="row">
                 @foreach ($vendors as $item)
                 <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
                     {{-- <div class="axil-product product-style-one has-color-pick mt--40"> --}}
                         <div class="thumbnail">
-                            <a href="javascript:void(0);">
+                            <a href="{{ route('vendorShop', ['vendor_id'=>$item->user_id, 'shop_slug'=>$item->business_slug]) }}">
                                 <img src="{{ $item->featured_image }}" alt="Product Images">
                             </a>
                             <div class="label-block label-right">
@@ -430,7 +428,7 @@
                                 <ul class="cart-action">
                                     <li class="wishlist d-none"><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
                                     <li class="select-option">
-                                        <a href="{{ route('vendorShop', ['owner_id'=>$item->user_id, 'shop_slug'=>$item->business_slug]) }}" >
+                                        <a href="{{ route('vendorShop', ['vendor_id'=>$item->id, 'shop_slug'=>$item->business_slug]) }}" >
                                           View Products
                                           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none;"></span>
                                         </a>
@@ -466,11 +464,11 @@
 
             </div>
 
-            <div class="row--15">
+            <div class="row--15 d-none">
                 @foreach ($vendors as $item)
                     <div class="thumbnail">
                         @if ($item->featured_image)
-                            <a href="{{ route('singleProduct', $item->id) }}">
+                            <a href="{{ route('vendorShop', ['vendor_id'=>$item->user_id, 'shop_slug'=>$item->business_slug]) }}">
                                 <img src="{{ $item->featured_image }}" alt="{{ $item->name }}">
                             </a>
                         @else
@@ -484,6 +482,7 @@
         </div>
     </div>
     <!-- End Expolre Product Area  -->
+
     <div class="axil-testimoial-area-two axil-section-gapBottom">
         <div class="container">
             <div class="testimonial-container-box">
@@ -709,7 +708,7 @@
                 <div class="slick-single-layout">
                     <div class="axil-product product-style-eight">
                         <div class="thumbnail">
-                            <a href="{{ route('singleProduct', $item->id) }}">
+                            <a href="{{ route('categoryShop', $item->slug) }}" style="height: 100%">
                                 <img data-sal="zoom-out" data-sal-delay="100" data-sal-duration="800" loading="lazy" class="main-img" src="{{ $item->featured_logo }}" alt="Product Images">
                             </a>
                             <div class="label-block label-left">
@@ -753,6 +752,7 @@
                 @endif
 
             </div>
+
         </div>
     </div>
     <!-- End Expolre Product Area  -->

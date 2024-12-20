@@ -139,7 +139,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdown-header-menu">
                                     @foreach ($allVendors as $item)
-                                        <li><a class="dropdown-item" href="{{ route('vendorShop', ['owner_id'=>$item->user_id, 'shop_slug'=>$item->business_slug]) }}">{{ $item->business_name }}</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('vendorShop', ['vendor_id'=>$item->user_id, 'shop_slug'=>$item->business_slug]) }}">{{ $item->business_name }}</a></li>
                                     @endforeach
                                 </ul>
                             </li>

@@ -70,7 +70,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'vendors'], function () {
 
 });
 Route::group(['prefix' => 'vendors'], function () {
-    Route::get('/shop/{owner_id}/{shop_slug?}', [VendorController::class, 'vendorShop'])->name('vendorShop');
+    Route::get('/shop/{vendor_id}/{shop_slug?}', [VendorController::class, 'vendorShop'])->name('vendorShop');
 });
 
 //cart

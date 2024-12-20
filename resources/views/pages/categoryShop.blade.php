@@ -34,7 +34,7 @@
                 <div class="col-lg-6 col-md-4">
                     <div class="inner">
                         <div class="bradcrumb-thumb">
-                            <img src="{{asset('/assets/images/product/product-45.png')}}" alt="Image">
+                            <img src="{{$category->featured_logo }}" alt="Image" style="width: 110px; height: 110px; border-radius: 110px;">
                         </div>
                     </div>
                 </div>
@@ -110,18 +110,18 @@
                 <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="axil-product product-style-one has-color-pick mt--40">
                         <div class="thumbnail">
-                            <a href="single-product.html">
+                            <a href="javascript:void(0)">
                                 <img src="{{ $item->featured_image }}" alt="Product Images">
                             </a>
                             <div class="label-block label-right d-none">
                                 <div class="product-badget">20% OFF</div>
                             </div>
-                            <div class="product-hover-action">
+                            <div class="product-hover-action d-none">
                                 <ul class="cart-action">
                                     <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
                                     <li class="select-option add-to-cart-multiple" data-id="{{ $item->id }}">
                                         <a href="javascript:void(0)" >
-                                          Add to Cart
+                                          Add to Cart1
                                           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none;"></span>
                                         </a>
 
@@ -132,7 +132,7 @@
                         </div>
                         <div class="product-content">
                             <div class="inner">
-                                <h5 class="title"><a href="{{ route('singleProduct', $item->id) }}">{{ $item->name }}</a></h5>
+                                <h5 class="title"><a href="javascript:void(0)">{{ $item->name }}</a></h5>
                                 <div class="product-price-variant">
                                     <span class="price current-price">${{ $item->price }}</span>
                                     <span class="price old-price d-none">$30</span>
@@ -373,7 +373,7 @@
                                         <!-- End Quentity Action  -->
 
                                         <!-- Start Product Action  -->
-                                        <ul class="product-action d-flex-center mb--0">
+                                        <ul class="product-action d-flex-center mb--0 d-none">
                                             <li class="add-to-cart">
                                                 <a href="javascript:void(0)" class="axil-btn btn-bg-primary">
                                                     Add to Cart

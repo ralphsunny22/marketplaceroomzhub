@@ -43,11 +43,15 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $alternate_images = $product->alternate_images ? json_decode($product->alternate_images) : null;
 
+        $owner_id = $product->created_by;
+
         //cartProduct
         $cartProduct = Helpers::cartProduct($product->id); //{"name":"Annie Shoe","quantity":8,"price":1000,"featured_image":"2024-09-14-66e582b673b00.png"}
         $cartProductQty = $cartProduct ?  $cartProduct['quantity'] : 1;
 
-        return view('pages.product.singleProduct', compact('product', 'alternate_images', 'cartProductQty'));
+        $similarProducts = Product::where('id', '!=', $id)->where('category_id', $product->category_id)->where('created_by', $owner_id)->get();
+
+        return view('pages.product.singleProduct', compact('product', 'alternate_images', 'cartProductQty', 'similarProducts'));
     }
 
     /**

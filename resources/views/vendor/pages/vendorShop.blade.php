@@ -102,7 +102,7 @@
                                         </a>
 
                                     </li>
-                                    <li class="quickview" data-item="{{ json_encode($item) }}"><a href="#" data-bs-toggle="modal" data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
+                                    <li class="quickview d-none" data-item="{{ json_encode($item) }}"><a href="#" data-bs-toggle="modal" data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -432,14 +432,17 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('product-price').textContent = `$${product.price}`;
             document.getElementById('pro-qty').value = `${product.product_qty_in_cart}`;
             document.getElementById('pro-id').value = `${product.id}`;
-            document.getElementById('product-featured-image').src = `/storage/products/${product.featured_image}`;
-            document.getElementById('product-featured-popup-zoom').href = `/storage/products/${product.featured_image}`;
+            // document.getElementById('product-featured-image').src = `/storage/products/${product.featured_image}`;
+            document.getElementById('product-featured-image').src = `/${product.featured_image}`;
+            // document.getElementById('product-featured-popup-zoom').href = `/storage/products/${product.featured_image}`;
+            document.getElementById('product-featured-popup-zoom').href = `/${product.featured_image}`;
 
             // Handle alternate images (assuming alternate_images is an array of image URLs)
             let alternateImages = product.alternate_images ? JSON.parse(product.alternate_images) : null;
             let alternateImagesContainer = document.querySelector('.alternate-images-container');
 
-            document.getElementById('small-thumb-img').src = `/storage/products/${product.featured_image}`;
+            // document.getElementById('small-thumb-img').src = `/storage/products/${product.featured_image}`;
+            document.getElementById('small-thumb-img').src = `/${product.featured_image}`;
             let smallThumbsContainer = document.querySelector('.product-small-thumb');
 
             // Clear the container before adding new images
